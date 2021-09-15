@@ -12,7 +12,6 @@ const app = express(); //создаем сервер
 // подключаем DB_HOST
 const { DB_HOST, PORT = 3000 } = process.env; // импортируем строку подключчения
 
-
 mongoose
   .connect(DB_HOST, {
     useNewUrlParser: true,
@@ -32,7 +31,7 @@ app.use(cors()); // используем мидлвару, чтобы появи
 app.use(express.json()); // чтобы put и patch запросы считывались
 
 // app.use("/api/v1/", api.user); //обработчик маршрута user
-
+app.use("/api/v1/transactions", api.transactions); //обработчик маршрута transactions
 
 // пишем обработчик несуществующих запроосов:
 app.use((_, res) => {
