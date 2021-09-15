@@ -1,7 +1,7 @@
 const users = require("./user");
 const auth = require("./auth");
 const transactions = require("./transactions");
-const category = require("./income");
+const category = require("./category");
 
 
 module.exports = {
@@ -9,5 +9,4 @@ module.exports = {
   auth,
   transactions,
   category,
-
 };
