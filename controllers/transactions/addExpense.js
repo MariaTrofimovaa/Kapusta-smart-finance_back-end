@@ -2,12 +2,14 @@ const { transactions: service } = require("../../services");
 
 const addExpense = async (req, res, next) => {
   try {
-    const result = await service.addExpense(req.body);
-    res.status(201).json({
+    const addedExpense = await service.addExpense(req.body);
+    const allExpenses = await service.listExpenses();
+    return res.status(201).json({
       status: "success",
       code: 201,
       data: {
-        result,
+        addedExpense,
+        allExpenses,
       },
     });
   } catch (error) {

@@ -7,6 +7,7 @@ const { transactions: ctrl } = require("../../controllers");
 
 const router = express.Router();
 
-router.post("/", ctrl.addExpense);
+router.post("/expense", ctrl.addExpense);
+router.post("/income", ctrl.addIncome);
 
 module.exports = router;

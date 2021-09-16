@@ -9,7 +9,7 @@
 
 const { Schema } = require("mongoose");
 
-const expenseSchema = Schema({
+const transactionSchema = Schema({
   date: {
     type: String,
   },
@@ -26,6 +26,10 @@ const expenseSchema = Schema({
     type: String,
     required: [true, "Choose category"],
   },
+
+  transactionType: {
+    type: String,
+  },
 });
 
-module.exports = { expenseSchema };
+module.exports = { transactionSchema };

@@ -1,8 +1,8 @@
 const { model } = require("mongoose");
 
 const { transactions } = require("./schemas");
-const { expenseSchema } = transactions;
+const { transactionSchema } = transactions;
 
-const Transaction = model("expense", expenseSchema);
+const Transaction = model("transaction", transactionSchema);
 
 module.exports = Transaction;
