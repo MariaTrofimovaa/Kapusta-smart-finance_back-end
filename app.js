@@ -32,6 +32,7 @@ app.use(express.json()); // чтобы put и patch запросы считыв�
 
 // app.use("/api/v1/", api.user); //обработчик маршрута user
 app.use("/api/v1/transactions", api.transactions); //обработчик маршрута transactions
+app.use('/api/v1/user',api.users);
 
 // пишем обработчик несуществующих запроосов:
 app.use((_, res) => {

@@ -1,9 +1,9 @@
-// const User = require("./user");
+const User = require("./user");
 // const Category = require("./category");
 const Transaction = require("./transactions");
 
 module.exports = {
-  // User,
+  User,
   // Category,
   Transaction,
 };

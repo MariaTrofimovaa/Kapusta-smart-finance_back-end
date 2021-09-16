@@ -1,9 +1,10 @@
-// const express = require("express");
+const express = require("express");
+const userCtrl = require("../../controllers").user;
 
-// const {
-//   user: { joiSchema },
-// } = require("../../models/schemas");
 
-// const router = express.Router();
+const router = express.Router();
 
-// module.exports = router;
+router.get("/",userCtrl.getBalance);
+router.patch("/",userCtrl.setBalance);
+
+module.exports = router;
