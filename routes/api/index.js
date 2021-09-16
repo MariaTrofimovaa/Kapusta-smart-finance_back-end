@@ -1,10 +1,10 @@
-// const users = require("./user");
+const users = require("./user");
 // const auth = require("./auth");
 const transactions = require("./transactions");
 // const category = require("./income");
 
 module.exports = {
-  // users,
+  users,
   // auth,
   transactions,
   // category,
