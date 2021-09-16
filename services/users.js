@@ -7,9 +7,8 @@ const getOne = (filter) => {
 const getById = (id) => User.findById(id);
 
 const add = ({ password, ...rest }) => {
-  // console.log(rest);
-  const newUser = new User(rest);
-  newUser.setPassword(password);
+  const newUser = new User(rest); // создаем новый экземпляр модели
+  newUser.setPassword(password); //сохраням пароль, он хеширует пароль внутри
   return newUser.save();
 };
 
@@ -19,7 +18,7 @@ const update = (id, updateUser) => {
 
 module.exports = {
   getOne,
-  getById,
   add,
+  getById,
   update,
 };

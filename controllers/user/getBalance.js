@@ -1,19 +1,18 @@
 const { users: service } = require("../../services");
 
-const add = async (req, res, next) => {
+const getBalance = async (req, res, next) => {
   try {
-    // console.log(req.user);
-    const result = await service.add(req.body);
-   
+    const {balance} = await service.getById('61422103e1a984521715ca6c');
+
     res.status(201).json({
       status: "success",
       code: 201,
-      data: {
-        result,
-      },
+      balance:balance
     });
   } catch (error) {
     next(error);
   }
 };
-module.exports = add;
+
+
+module.exports = getBalance;

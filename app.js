@@ -30,8 +30,10 @@ app.use(logger(formatsLogger));
 app.use(cors()); // используем мидлвару, чтобы появились кроссдоменные запросы
 app.use(express.json()); // чтобы put и patch запросы считывались
 
-app.use("/api/v1/users", api.users); //обработчик маршрута user
 app.use("/api/v1/auth", api.auth);
+// app.use("/api/v1/", api.user); //обработчик маршрута user
+app.use("/api/v1/transactions", api.transactions); //обработчик маршрута transactions
+app.use("/api/v1/user", api.users);
 
 // пишем обработчик несуществующих запроосов:
 app.use((_, res) => {
