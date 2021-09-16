@@ -12,7 +12,6 @@ const app = express(); //создаем сервер
 // подключаем DB_HOST
 const { DB_HOST, PORT = 3000 } = process.env; // импортируем строку подключчения
 
-
 mongoose
   .connect(DB_HOST, {
     useNewUrlParser: true,
@@ -31,8 +30,8 @@ app.use(logger(formatsLogger));
 app.use(cors()); // используем мидлвару, чтобы появились кроссдоменные запросы
 app.use(express.json()); // чтобы put и patch запросы считывались
 
-// app.use("/api/v1/", api.user); //обработчик маршрута user
-
+app.use("/api/v1/users", api.users); //обработчик маршрута user
+app.use("/api/v1/auth", api.auth);
 
 // пишем обработчик несуществующих запроосов:
 app.use((_, res) => {
@@ -40,7 +39,7 @@ app.use((_, res) => {
   res.status(404).send({
     status: "error",
     code: 404,
-    message: "Not found!",
+    message: "Not found!blablabla",
   });
 });
 

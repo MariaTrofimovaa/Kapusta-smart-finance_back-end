@@ -3,11 +3,12 @@ const jwt = require("jsonwebtoken");
 
 const signin = async (req, res, next) => {
   try {
-    const { email, password } = req.body; // извлекаем имейл и пароль из тела запроса
+    const { email, password } = req.body; // извлекаем eмейл и пароль из тела запроса
+
     const user = await service.getOne({ email }); // проверяем, есть ли такой пользователь
 
-    // если пользователь не найден или не найден пароль или не подтвердил email: 
-    if (!user || !user.verify || !user.comparePassword(password)) {
+    // если пользователь не найден или не найден пароль или не подтвердил email:
+    if (!user || !user.comparePassword(password)) {
       return res.status(400).json({
         status: "error",
         code: 400,
