@@ -14,7 +14,7 @@ sgMail.setApiKey(SENDGRID_API_KEY); //у sgMail вызываем метод setA
 // создаем универсальную функцию, которая отправляет письмо от нашего имени
 const sendEmail = async ({ to, subject, html }) => {
   const email = {
-    from: "y.p.p@i.ua",
+    from: "trofimova.maria@ex.ua",
     to,
     subject,
     html,
@@ -22,11 +22,5 @@ const sendEmail = async ({ to, subject, html }) => {
   const result = await sgMail.send(email);
   return result;
 };
-
-// у обьекта sgMail вызываем метод send и передаем ему email
-sgMail
-  .send(this.email)
-  .then(() => console.log("email has been sended!"))
-  .catch((error) => console.log(error));
 
 module.exports = sendEmail;

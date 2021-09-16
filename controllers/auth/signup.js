@@ -33,7 +33,12 @@ const signup = async (req, res, next) => {
       html: `<a href="${URL}/api/v1/auth/verify/${verifyToken}" target="_blank">Please verify your email<a/>`,
     };
 
-    await sendEmail(sendToEmail); //отправляем письмо юзеру
+    try {
+      await sendEmail(sendToEmail) ; //отправляем письмо юзеру
+      
+    } catch (error) {
+      console.log(error)
+    }
 
     res.status(201).json({
       status: "success",

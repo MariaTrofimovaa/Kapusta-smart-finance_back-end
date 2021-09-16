@@ -66,7 +66,7 @@ const joiSchema = Joi.object({
     .required()
     .email({
       minDomainSegments: 2,
-      tlds: { allow: ["com", "net", "ru", "ukr"] },
+      tlds: { allow: ["com", "net", "ru", "ukr", "ua"] },
     }),
   subscription: Joi.string(),
 
