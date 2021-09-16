@@ -1,5 +1,5 @@
 const { users: service } = require("../../services");
-// const { sendMail } = require("../../utils");
+const { sendEmail } = require("../../utils");
 const { nanoid } = require("nanoid");
 
 const signup = async (req, res, next) => {
@@ -33,7 +33,7 @@ const signup = async (req, res, next) => {
       html: `<a href="${URL}/api/v1/auth/verify/${verifyToken}" target="_blank">Please verify your email<a/>`,
     };
 
-    // await sendMail(sendToEmail); //отправляем письмо юзеру
+    await sendEmail(sendToEmail); //отправляем письмо юзеру
 
     res.status(201).json({
       status: "success",
