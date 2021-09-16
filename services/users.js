@@ -2,10 +2,9 @@ const { User } = require("../models");
 
 const getOne = (filter) => {
   return User.findOne(filter);
-}; 
+};
 
 const getById = (id) => User.findById(id);
-
 
 const add = ({ password, ...rest }) => {
   const newUser = new User(rest); // создаем новый экземпляр модели
@@ -21,5 +20,5 @@ module.exports = {
   getOne,
   add,
   getById,
-  update
+  update,
 };

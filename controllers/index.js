@@ -1,10 +1,9 @@
 const transactions = require("./transactions");
-// const user = require("./transactions/index.js");
-// const auth = require("./auth");
+const auth = require("./auth");
 const user = require("./user");
 
 module.exports = {
+  auth,
   user,
-  // auth,
   transactions,
 };

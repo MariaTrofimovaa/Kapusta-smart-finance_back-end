@@ -20,18 +20,27 @@ const userSchema = Schema({
     match: emailRegex,
     unique: true,
   },
+  token: {
+    type: String,
+    default: null,
+  },
+
+  verify: {
+    type: Boolean,
+    default: false,
+  },
+  verifyToken: {
+    type: String,
+    required: [true, "Verify token is required"],
+  },
   balance: {
     type: Number,
     default: 0,
   },
-  token: {
-    // сохраняем токен в базе данных
-    type: String,
-    default: null,
-  },
 });
 
 // хеширование пароля с помощью bcryptjs
+
 userSchema.methods.setPassword = function (password) {
   this.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 };
@@ -39,6 +48,11 @@ userSchema.methods.setPassword = function (password) {
 userSchema.methods.comparePassword = function (password) {
   return bcrypt.compareSync(password, this.password);
 };
+
+// const joiSchema = Joi.object({
+//   email: Joi.string().pattern(emailRegex).required(),
+//   password: Joi.string().min(6).required(),
+
 // password - пароль, который пользователь ввел
 // this.password - его реальный пароль, который уже захеширован
 
@@ -55,6 +69,7 @@ const joiSchema = Joi.object({
       tlds: { allow: ["com", "net", "ru", "ukr"] },
     }),
   subscription: Joi.string(),
+
   token: Joi.string(),
 });
 
