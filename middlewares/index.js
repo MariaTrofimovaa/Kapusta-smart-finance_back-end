@@ -1,7 +1,7 @@
-const authentificate = require("./authentificate");
+// const authentificate = require("./authentificate");
 const validation = require("./validation");
 
 module.exports = {
-  authentificate,
+  // authentificate,
   validation,
 };

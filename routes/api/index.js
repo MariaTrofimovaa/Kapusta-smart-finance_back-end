@@ -1,13 +1,11 @@
-const users = require("./user");
-const auth = require("./auth");
+// const users = require("./user");
+// const auth = require("./auth");
 const transactions = require("./transactions");
-const category = require("./income");
-
+// const category = require("./income");
 
 module.exports = {
-  users,
-  auth,
+  // users,
+  // auth,
   transactions,
-  category,
-
+  // category,
 };
