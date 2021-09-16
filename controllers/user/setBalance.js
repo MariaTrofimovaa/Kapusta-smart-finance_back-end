@@ -2,10 +2,10 @@ const { users: service } = require("../../services");
 
 const setBalance = async (req, res, next) => {
   try {
-    const userId = '61422103e1a984521715ca6c';
+    const userId = req.user.id;
     const newBalance = req.body.balance;  
     const updateResult = await service.update(userId,{balance:newBalance});   
-    const {balance} = await service.getById('61422103e1a984521715ca6c');
+    const {balance} = await service.getById(userId);
 
     res.status(201).json({
       status: "success",
