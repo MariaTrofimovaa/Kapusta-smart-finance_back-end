@@ -1,8 +1,16 @@
-const { transactions: service } = require("../../services");
+const { transactions: service, users: userService } = require("../../services");
 
 const addExpense = async (req, res, next) => {
   try {
-    const addedExpense = await service.addExpense(req.body);
+    // добавим затраты
+    const newExpense = { ...req.body, userId: req.user._id };
+    const addedExpense = await service.addExpense(newExpense);
+
+    // обновим баланс
+    const oldBalance = req.user.balance;
+    const newBalance = oldBalance - req.body.amount;
+    const updatedBalance = await userService.update(req.user._id,{balance:newBalance});
+
     const allExpenses = await service.listExpenses();
     return res.status(201).json({
       status: "success",
@@ -10,6 +18,7 @@ const addExpense = async (req, res, next) => {
       data: {
         addedExpense,
         allExpenses,
+        updatedBalance,
       },
     });
   } catch (error) {
