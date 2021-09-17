@@ -30,6 +30,9 @@ const transactionSchema = Schema({
   transactionType: {
     type: String,
   },
+  userId: {
+    type: String,
+  },
 });
 
 module.exports = { transactionSchema };
