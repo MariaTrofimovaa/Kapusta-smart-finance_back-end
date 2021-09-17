@@ -1,12 +1,16 @@
 const jwt = require("jsonwebtoken");
 const { users: service } = require("../services");
 
-const { SECRET_KEY } = process.env;
+require("dotenv").config();
 
-const authenificate = async (req, res, next) => {
+const { SECRET_KEY } = process.env;
+// console.log(SECRET_KEY);
+const authentificate = async (req, res, next) => {
   try {
     const { authorization } = req.headers;
     const [bearer, token] = authorization.split(" ");
+    console.log(bearer);
+    console.log(token);
     if (bearer !== "Bearer") {
       return res.status(401).json({
         status: "error",
@@ -32,4 +36,4 @@ const authenificate = async (req, res, next) => {
   }
 };
 
-module.exports = authenificate;
+module.exports = authentificate;

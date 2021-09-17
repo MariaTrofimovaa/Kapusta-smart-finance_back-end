@@ -1,4 +1,4 @@
-const { transactions: service } = require("../../services");
+const { transactions: service, users: userService } = require("../../services");
 
 const addIncome = async (req, res, next) => {
   try {
