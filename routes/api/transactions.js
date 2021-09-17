@@ -9,5 +9,6 @@ const router = express.Router();
 
 router.post("/expense", ctrl.addExpense);
 router.post("/income", ctrl.addIncome);
+router.get("/count/:month", ctrl.getCount);
 
 module.exports = router;
