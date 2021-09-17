@@ -2,12 +2,12 @@
 
 const express = require("express");
 
-const { transactions: ctrl } = require("../../controllers");
-// const { authenticate } = require("../middlewares");
+const { transactions: ctrl, auth } = require("../../controllers");
+const authentificate = require("../../middlewares/authentificate");
 
 const router = express.Router();
 
-router.post("/expense", ctrl.addExpense);
-router.post("/income", ctrl.addIncome);
+router.post("/expense", authentificate, ctrl.addExpense);
+router.post("/income", authentificate, ctrl.addIncome);
 
 module.exports = router;
