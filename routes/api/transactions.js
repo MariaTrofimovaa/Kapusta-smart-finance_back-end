@@ -1,18 +1,35 @@
 // Здесь должны быть роуты для получения отчета.
 
 const express = require("express");
-const { routes } = require("../../app");
 
-const { transactions: ctrl } = require("../../controllers");
+const { transactions: ctrl, auth } = require("../../controllers");
 // const { authenticate } = require("../middlewares");
+const { validation, authentificate } = require("../../middlewares"); // лучше так импортировать
 
 const router = express.Router();
 
+router.get("/:type/:month", authentificate, ctrl.getAllForMonth);
+router.delete("/:objId", authentificate, ctrl.del);
+
 // router.post("/expense", ctrl.addExpense);
 // router.post("/income", ctrl.addIncome);
+router.get("/brief", ctrl.readBrief);
+// router.get("/brief", ctrl.readBrief);
 
-router.post("/", ctrl.addTransaction);
+// router.post("/expense", ctrl.addExpense);
+// router.post("/income", ctrl.addIncome);
+router.get("/count/:month", ctrl.getCount);
 
-router.get("/expense/currentYear");
+// Правильно импортировать схему
+// const {
+//   user: { joiSchema },
+// } = require("../../models/schemas");
+
+// router.post("/expense", authentificate, validation(joiSchema),  ctrl.addExpense); // нужна валидация и джойсхема
+router.post("/expense", authentificate, ctrl.addExpense);
+// router.post("/income", authentificate, validation(joiSchema), ctrl.addIncome); // нужна валидация и джойсхема
+router.post("/income", authentificate, ctrl.addIncome);
+
+router.post("/", authentificate, ctrl.addTransaction);
 
 module.exports = router;
