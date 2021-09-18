@@ -24,7 +24,6 @@ const listIncomes = () => {
   );
 };
 
-
 const readBrief = ({ type }) => {
   return Transaction.find(
     { transactionType: type },
@@ -32,15 +31,34 @@ const readBrief = ({ type }) => {
   );
 };
 
-
 const listCount = async (owner, month) => {
   const data = await Transaction.find(
-  { owner },
-  "_id date description amount category transactionType"
+    { owner },
+    "_id date description amount category transactionType"
   );
-  const count = data.filter(({date}) => date.slice(3)===month);
+  const count = data.filter(({ date }) => date.slice(3) === month);
   return count;
-}
+};
+
+const remove = async (objId, userId) => {
+  const filter = { _id: objId, userId: userId };
+  const user = await Transaction.findById(filter);
+  if (!user || user.length < 1) return false;
+
+  const result = await Transaction.findByIdAndDelete({ _id: objId });
+  return result;
+};
+
+const getForMonth = async (id, type, month) => {
+  const data = await Transaction.find({ userId: id, type: type });
+  const filtered = data.filter((obj) => {
+    const monthSLice = obj.date.slice(3);
+
+    return monthSLice === month;
+  });
+
+  return filtered;
+};
 
 module.exports = {
   addExpense,
@@ -49,5 +67,6 @@ module.exports = {
   listIncomes,
   readBrief,
   listCount,
-
+  remove,
+  getForMonth,
 };

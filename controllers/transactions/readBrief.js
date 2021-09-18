@@ -5,7 +5,6 @@ const readBrief = async (req, res, next) => {
   // console.log(req.body);
   try {
     const allIncomes = await service.readBrief(req.query);
-    console.log(allIncomes);
     return res.status(201).json({
       status: "success",
       code: 201,
