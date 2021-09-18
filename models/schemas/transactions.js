@@ -44,11 +44,13 @@ const transactionSchema = Schema({
 });
 
 // добавь joiSchema и в роут добавь валидацию по joiSchema (я могла поторопиться и неверно импортироваь)
-const joiSchema = Joi.object({
-  // password: Joi.string().min(6).required(),
-  // email: Joi.string().required().email({
-  //   minDomainSegments: 2,
-  // }),
-});
+// const joiSchema = Joi.object({
+//   password: Joi.string().min(6).required(),
+//   email: Joi.string().required().email({
+//     minDomainSegments: 2,
+//   }),
+// });
 
-module.exports = { transactionSchema , joiSchema};
+// module.exports = { transactionSchema , joiSchema};
+
+module.exports = { transactionSchema };
