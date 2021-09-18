@@ -9,5 +9,7 @@ const router = express.Router();
 
 router.post("/expense", ctrl.addExpense);
 router.post("/income", ctrl.addIncome);
+router.get("/brief", ctrl.readBrief);
+// router.get("/brief", ctrl.readBrief);
 
 module.exports = router;

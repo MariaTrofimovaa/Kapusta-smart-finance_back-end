@@ -23,9 +23,17 @@ const listIncomes = () => {
   );
 };
 
+const readBrief = ({ type }) => {
+  return Transaction.find(
+    { transactionType: type },
+    "_id date description amount category transactionType"
+  );
+};
+
 module.exports = {
   addExpense,
   listExpenses,
   addIncome,
   listIncomes,
+  readBrief,
 };
