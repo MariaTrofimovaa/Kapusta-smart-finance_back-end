@@ -16,7 +16,6 @@ const signup = async (req, res, next) => {
     const verifyToken = nanoid();
 
     const newUser = await service.add({ ...req.body, verifyToken });
-    console.log(req.body);
 
     // const verifyToken = "asdf*gsdhdsd!dfedf"; // создаем токен верификации
 

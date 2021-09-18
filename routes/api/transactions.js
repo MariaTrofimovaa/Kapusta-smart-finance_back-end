@@ -9,6 +9,10 @@ const { validation, authentificate } = require("../../middlewares"); // лучш
 
 const router = express.Router();
 
+router.get("/:type/:month", authentificate, ctrl.getAllForMonth);
+router.delete("/:objId",authentificate, ctrl.del);
+
+
 // router.post("/expense", ctrl.addExpense);
 // router.post("/income", ctrl.addIncome);
 router.get("/brief", ctrl.readBrief);
