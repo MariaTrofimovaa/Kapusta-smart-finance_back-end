@@ -10,7 +10,7 @@ require("dotenv").config(); // чтобы содержимое файла env д
 const app = express(); //создаем сервер
 
 // подключаем DB_HOST
-const { DB_HOST, PORT = 3000 } = process.env; // импортируем строку подключчения
+const { SECRET_KEY, DB_HOST, PORT = 4000 } = process.env; // импортируем строку подключчения
 
 mongoose
   .connect(DB_HOST, {
@@ -20,7 +20,7 @@ mongoose
     useFindAndModify: false,
   })
   .then(async () => {
-    console.log("Database connection successful");
+    console.log(`Database connection successful on server ${PORT}`);
     app.listen(PORT); // запускаем сервер
   })
   .catch((error) => console.log(error));
@@ -48,11 +48,11 @@ app.use((_, res) => {
 // пишем обработчик ошибок
 
 app.use((error, _, res, __) => {
-  const { code = 500, message = "Server error" } = error;
+  const { status = 500, message = "Server error" } = error;
   console.log(error);
-  res.status(code).json({
+  res.status(status).json({
     status: "error",
-    code,
+    code: status,
     message,
   });
 });

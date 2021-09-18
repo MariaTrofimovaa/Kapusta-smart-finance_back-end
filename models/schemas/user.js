@@ -60,17 +60,12 @@ userSchema.methods.comparePassword = function (password) {
 const joiSchema = Joi.object({
   password: Joi.string()
     .min(6)
-    .required()
-    .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")),
+    .required(),
   email: Joi.string()
     .required()
     .email({
       minDomainSegments: 2,
-      tlds: { allow: ["com", "net", "ru", "ukr", "ua"] },
     }),
-  subscription: Joi.string(),
-
-  token: Joi.string(),
 });
 
 module.exports = {
