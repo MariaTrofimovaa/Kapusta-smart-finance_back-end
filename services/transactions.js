@@ -24,6 +24,15 @@ const listIncomes = () => {
   );
 };
 
+
+const readBrief = ({ type }) => {
+  return Transaction.find(
+    { transactionType: type },
+    "_id date description amount category transactionType"
+  );
+};
+
+
 const listCount = async (owner, month) => {
   const data = await Transaction.find(
   { owner },
@@ -32,10 +41,13 @@ const listCount = async (owner, month) => {
   const count = data.filter(({date}) => date.slice(3)===month);
   return count;
 }
+
 module.exports = {
   addExpense,
   listExpenses,
   addIncome,
   listIncomes,
+  readBrief,
   listCount,
+
 };
