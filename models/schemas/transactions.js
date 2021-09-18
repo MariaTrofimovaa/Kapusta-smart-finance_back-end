@@ -24,7 +24,7 @@ const transactionSchema = Schema({
   },
   category: {
     type: String,
-    required: [true, "Choose category"],
+    // required: [true, "Choose category"],
   },
 
   transactionType: {

@@ -3,13 +3,13 @@ const { transactions: service } = require("../../services");
 const addExpense = async (req, res, next) => {
   try {
     const addedExpense = await service.addExpense(req.body);
-    const allExpenses = await service.listExpenses();
+    // const allExpenses = await service.listExpenses();
     return res.status(201).json({
       status: "success",
       code: 201,
       data: {
         addedExpense,
-        allExpenses,
+        // allExpenses,
       },
     });
   } catch (error) {

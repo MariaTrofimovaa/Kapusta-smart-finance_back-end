@@ -10,7 +10,7 @@ require("dotenv").config(); // чтобы содержимое файла env д
 const app = express(); //создаем сервер
 
 // подключаем DB_HOST
-const { DB_HOST, PORT = 3000 } = process.env; // импортируем строку подключчения
+const { DB_HOST, PORT = 4000 } = process.env; // импортируем строку подключчения
 
 mongoose
   .connect(DB_HOST, {
