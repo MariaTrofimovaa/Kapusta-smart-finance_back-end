@@ -15,7 +15,7 @@ const transactionSchema = Schema({
   },
   description: {
     type: String,
-    required: [true, "Describe expense"],
+    // required: [true, "Describe expense"],
   },
 
   amount: {

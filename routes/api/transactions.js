@@ -8,8 +8,10 @@ const { transactions: ctrl } = require("../../controllers");
 
 const router = express.Router();
 
-router.post("/expense", ctrl.addExpense);
-router.post("/income", ctrl.addIncome);
+// router.post("/expense", ctrl.addExpense);
+// router.post("/income", ctrl.addIncome);
+
+router.post("/", ctrl.addTransaction);
 
 router.get("/expense/currentYear");
 
