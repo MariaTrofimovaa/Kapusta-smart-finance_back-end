@@ -4,6 +4,6 @@ const Transaction = require("./transactions");
 
 module.exports = {
   User,
-  // Category,
+  Category,
   Transaction,
 };

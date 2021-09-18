@@ -1,12 +1,12 @@
 const { Transaction } = require("../models");
 
 const addExpense = (newExpense) => {
-  newExpense.transactionType = "expense";
+  newExpense.transactionType = "Расходы";
   return Transaction.create(newExpense);
 };
 
 const addIncome = (newIncome) => {
-  newIncome.transactionType = "income";
+  newIncome.transactionType = "Доходы";
   return Transaction.create(newIncome);
 };
 
