@@ -26,8 +26,8 @@ const transactionSchema = Schema({
   },
   category: {
     type: String,
-    required: [true, "Choose category"],
-    enum: ["...", "описать типы категорий"]
+    // required: [true, "Choose category"],
+    // enum: ["...", "описать типы категорий"]
     // в enum запиши все категории через запятую
   },
 
