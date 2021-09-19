@@ -24,11 +24,17 @@
 
 // добавить их в базу
 
-
-
-
-
-
 // ******** доп фичи (если останется время) ********
 // добавление категории:
 // привязка к юзеру, чтобы отображались только его добавленные категории
+
+const { Schema } = require("mongoose");
+
+const categorySchema = Schema({
+  category: {
+    type: String,
+    required: [true, "Выберите категорию"],
+  },
+});
+
+module.exports = { categorySchema };

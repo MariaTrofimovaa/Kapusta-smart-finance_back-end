@@ -10,7 +10,7 @@ require("dotenv").config(); // чтобы содержимое файла env д
 const app = express(); //создаем сервер
 
 // подключаем DB_HOST
-const {DB_HOST, PORT = 4000 } = process.env; // импортируем строку подключчения
+const { DB_HOST, PORT = 4000 } = process.env; // импортируем строку подключчения
 
 mongoose
   .connect(DB_HOST, {
@@ -34,6 +34,7 @@ app.use("/api/v1/auth", api.auth);
 // app.use("/api/v1/", api.user); //обработчик маршрута user
 app.use("/api/v1/transactions", api.transactions); //обработчик маршрута transactions
 app.use("/api/v1/user", api.users);
+app.use("/api/v1/categories", api.categories); //обработчик маршрута category
 
 // пишем обработчик несуществующих запроосов:
 app.use((_, res) => {

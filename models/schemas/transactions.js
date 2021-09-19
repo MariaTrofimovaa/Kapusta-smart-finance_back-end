@@ -27,14 +27,26 @@ const transactionSchema = Schema({
   category: {
     type: String,
     required: [true, "Choose category"],
-    enum: ["...", "описать типы категорий"]
-    // в enum запиши все категории через запятую
+    enum: [
+      "Транспорт",
+      "Продукты",
+      "Здоровье",
+      "Алкоголь",
+      "Развлечения",
+      "Всё для дома",
+      "Техника",
+      "Коммуналка и связь",
+      "Спорт и хобби",
+      "Образование",
+      "Прочее",
+      "ЗП",
+      "Дополнительные доходы",
+    ],
   },
-
-  type: {
+  transactionType: {
     type: String,
     required: true,
-    enum: ["expense", "income"]
+    enum: ["Расходы", "Доходы"],
   },
   userId: {
     type: Schema.Types.ObjectId,

@@ -1,9 +1,10 @@
 const addExpense = require("./addExpense");
 const addIncome = require("./addIncome");
 const readBrief = require("./readBrief");
-const getCount = require('./getCount')
-const getAllForMonth = require('./getAllForMonth')
-const del = require('./del')
+const getCount = require("./getCount");
+const getAllForMonth = require("./getAllForMonth");
+const del = require("./del");
+const addTransaction = require("./addTransaction");
 
 module.exports = {
   addExpense,
@@ -11,5 +12,6 @@ module.exports = {
   readBrief,
   getCount,
   getAllForMonth,
-  del
+  del,
+  addTransaction,
 };

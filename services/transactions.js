@@ -1,16 +1,6 @@
 const { date } = require("joi");
 const { Transaction } = require("../models");
 
-const addExpense = (newExpense) => {
-  newExpense.transactionType = "expense";
-  return Transaction.create(newExpense);
-};
-
-const addIncome = (newIncome) => {
-  newIncome.transactionType = "income";
-  return Transaction.create(newIncome);
-};
-
 const listExpenses = () => {
   return Transaction.find(
     { transactionType: "expense" },
@@ -60,13 +50,16 @@ const getForMonth = async (id, type, month) => {
   return filtered;
 };
 
+const addTransaction = (newTransaction) => {
+  return Transaction.create(newTransaction);
+};
+
 module.exports = {
-  addExpense,
   listExpenses,
-  addIncome,
   listIncomes,
   readBrief,
   listCount,
   remove,
   getForMonth,
+  addTransaction,
 };
