@@ -25,12 +25,14 @@ const signin = async (req, res, next) => {
 
     // 3. если пароль верный, гененрируем токен и отправляем
     const token = jwt.sign(payload, SECRET_KEY);
-    await service.update(user._id, { token }); // сохраняем токен в базе данных
+    await service.update(user._id, { token, email }); // сохраняем токен в базе данных
     res.json({
       status: "success",
       code: 200,
       data: {
         token,
+        email,
+        id: user._id,
       },
     });
   } catch (error) {

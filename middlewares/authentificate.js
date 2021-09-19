@@ -1,9 +1,11 @@
 const jwt = require("jsonwebtoken");
 const { users: service } = require("../services");
 
+require("dotenv").config();
+
 const { SECRET_KEY } = process.env;
 
-const authenificate = async (req, res, next) => {
+const authentificate = async (req, res, next) => {
   try {
     const { authorization } = req.headers;
     const [bearer, token] = authorization.split(" ");
@@ -32,4 +34,4 @@ const authenificate = async (req, res, next) => {
   }
 };
 
-module.exports = authenificate;
+module.exports = authentificate;

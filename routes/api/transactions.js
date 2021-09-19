@@ -3,7 +3,8 @@
 const express = require("express");
 
 const { transactions: ctrl, auth } = require("../../controllers");
-// const { authenticate } = require("../middlewares");
+
+// const authentificate = require("../../middlewares/authentificate");
 const { validation, authentificate } = require("../../middlewares"); // лучше так импортировать
 
 const router = express.Router();
@@ -11,13 +12,9 @@ const router = express.Router();
 router.get("/:type/:month", authentificate, ctrl.getAllForMonth);
 router.delete("/:objId", authentificate, ctrl.del);
 
-// router.post("/expense", ctrl.addExpense);
-// router.post("/income", ctrl.addIncome);
 router.get("/brief", ctrl.readBrief);
 // router.get("/brief", ctrl.readBrief);
 
-// router.post("/expense", ctrl.addExpense);
-// router.post("/income", ctrl.addIncome);
 router.get("/count/:month", ctrl.getCount);
 
 // Правильно импортировать схему

@@ -20,7 +20,7 @@ mongoose
     useFindAndModify: false,
   })
   .then(async () => {
-    console.log("Database connection successful");
+    console.log(`Database connection successful on server ${PORT}`);
     app.listen(PORT); // запускаем сервер
   })
   .catch((error) => console.log(error));
@@ -42,20 +42,20 @@ app.use((_, res) => {
   res.status(404).send({
     status: "error",
     code: 404,
-    message: "Not found!",
+    message: "Not found!***",
   });
 });
 
 // пишем обработчик ошибок
 
 app.use((error, _, res, __) => {
-  const { code = 500, message = "Server error" } = error;
+  const { status = 500, message = "Server error" } = error;
   console.log(error);
-  res.status(code).json({
+  res.status(status).json({
     status: "error",
-    code,
+    code: status,
     message,
   });
 });
 
-module.exports = app;
+// module.exports = app;
