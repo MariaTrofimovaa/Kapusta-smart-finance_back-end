@@ -24,23 +24,30 @@ const listIncomes = () => {
   );
 };
 
-
-const readBrief = ({ type }) => {
-  return Transaction.find(
-    { transactionType: type },
+const readBrief = async (query) => {
+  const data = await Transaction.find(
+    { transactionType: query.type },
     "_id date description amount category transactionType"
   );
-};
 
+  const findTransactions = data.filter(
+    ({ date }) => {
+      if (date) {
+        return date.slice(6) === query.year;
+      }
+    }
+  );
+  return findTransactions;
+};
 
 const listCount = async (owner, month) => {
   const data = await Transaction.find(
-  { owner },
-  "_id date description amount category transactionType"
+    { owner },
+    "_id date description amount category transactionType"
   );
-  const count = data.filter(({date}) => date.slice(3)===month);
+  const count = data.filter(({ date }) => date.slice(3) === month);
   return count;
-}
+};
 
 module.exports = {
   addExpense,
@@ -49,5 +56,4 @@ module.exports = {
   listIncomes,
   readBrief,
   listCount,
-
 };

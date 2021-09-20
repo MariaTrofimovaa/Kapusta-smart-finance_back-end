@@ -2,7 +2,7 @@
 
 const express = require("express");
 
-const { transactions: ctrl, auth } = require("../../controllers");
+const { transactions: ctrl } = require("../../controllers");
 
 // const authentificate = require("../../middlewares/authentificate");
 const { validation, authentificate } = require("../../middlewares"); // лучше так импортировать
@@ -12,8 +12,6 @@ const router = express.Router();
 // router.post("/expense", ctrl.addExpense);
 // router.post("/income", ctrl.addIncome);
 router.get("/brief", ctrl.readBrief);
-// router.get("/brief", ctrl.readBrief);
-
 
 // router.post("/expense", ctrl.addExpense);
 // router.post("/income", ctrl.addIncome);
