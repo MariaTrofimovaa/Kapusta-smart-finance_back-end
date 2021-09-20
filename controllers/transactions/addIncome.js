@@ -9,16 +9,18 @@ const addIncome = async (req, res, next) => {
     // обновим баланс
     const oldBalance = req.user.balance;
     const newBalance = oldBalance + req.body.amount;
-    const updatedBalance = await userService.update(req.user._id,{balance:newBalance});
+    const updatedBalance = await userService.update(req.user._id, {
+      balance: newBalance,
+    });
 
     const allIncomes = await service.listIncomes();
     return res.status(201).json({
       status: "success",
       code: 201,
-      data: {  
+      data: {
         addedIncome,
         allIncomes,
-        updatedBalance
+        updatedBalance,
       },
     });
   } catch (error) {

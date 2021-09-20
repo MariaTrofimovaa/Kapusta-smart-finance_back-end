@@ -3,18 +3,13 @@
 const express = require("express");
 
 const { transactions: ctrl } = require("../../controllers");
-
-// const authentificate = require("../../middlewares/authentificate");
 const { validation, authentificate } = require("../../middlewares"); // лучше так импортировать
 
 const router = express.Router();
 
-// router.post("/expense", ctrl.addExpense);
-// router.post("/income", ctrl.addIncome);
+router.get("/:type/:month", authentificate, ctrl.getAllForMonth);
+router.delete("/:objId", authentificate, ctrl.del);
 router.get("/brief", ctrl.readBrief);
-
-// router.post("/expense", ctrl.addExpense);
-// router.post("/income", ctrl.addIncome);
 router.get("/count/:month", ctrl.getCount);
 
 // Правильно импортировать схему
@@ -26,5 +21,7 @@ router.get("/count/:month", ctrl.getCount);
 router.post("/expense", authentificate, ctrl.addExpense);
 // router.post("/income", authentificate, validation(joiSchema), ctrl.addIncome); // нужна валидация и джойсхема
 router.post("/income", authentificate, ctrl.addIncome);
+
+router.post("/", authentificate, ctrl.addTransaction);
 
 module.exports = router;
