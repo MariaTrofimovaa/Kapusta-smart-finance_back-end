@@ -8,8 +8,9 @@ const getAllForMonth = async (req, res, next) => {
     if(result.length === 0) {
       res.json({
         status: "success",
-        code: 200,
-        data: null,
+        code: 404,
+        data: result,
+        message: 'Not found'
       });
       }
 

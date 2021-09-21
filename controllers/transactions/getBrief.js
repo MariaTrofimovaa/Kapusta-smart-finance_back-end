@@ -1,6 +1,6 @@
 const { transactions: service } = require("../../services");
 
-const readBrief = async (req, res, next) => {
+const getBrief = async (req, res, next) => {
   try {
     // const { _id } = req.user;
     // console.log(_id);
@@ -19,4 +19,4 @@ const readBrief = async (req, res, next) => {
     next(error);
   }
 };
-module.exports = readBrief;
+module.exports = getBrief;
