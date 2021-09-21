@@ -26,6 +26,6 @@ router.post("/", authentificate, ctrl.addTransaction);
 
 // Алена начала делать запрос на вызов транзакций по конкретному дню. Еще не доделала
 
-router.get("/:date", authentificate, ctrl.getAllByDate);
+router.get("/type", authentificate, ctrl.getExpenseByDate);
 
 module.exports = router;

@@ -48,7 +48,6 @@ const remove = async (objId, userId) => {
 };
 
 const getForMonth = async (id, type, month) => {
-
   const data = await Transaction.find({ userId: id, transactionType: type });
 
   const filtered = data.filter((obj) => {
@@ -65,19 +64,12 @@ const addTransaction = (newTransaction) => {
 };
 
 // Алена начала делать запрос на вызов транзакций по конкретному дню. Еще не доделала
-const getAllByDate = async (date, type) => {
-  console.log(date);
+const getExpenseByDate = async (type, date) => {
   const response = await Transaction.find({
+    transactionType: type,
     date: date,
   });
-  console.log("......................Response");
-  console.log(response);
-  const filteredResponse = response.filter((item) => {
-    item.type === type;
-  });
-  console.log("filteredResponse");
-  console.log(filteredResponse);
-  return filteredResponse;
+  return response;
 };
 
 module.exports = {
@@ -88,5 +80,5 @@ module.exports = {
   remove,
   getForMonth,
   addTransaction,
-  getAllByDate,
+  getExpenseByDate,
 };
