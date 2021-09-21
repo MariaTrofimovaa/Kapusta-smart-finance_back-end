@@ -8,12 +8,19 @@ const setBalance = async (req, res, next) => {
     const oldBalance = req.user.balance;
     const newBalance = req.body.balance;
     const balanceDelta = !oldBalance ? newBalance : newBalance - oldBalance;
-    const today = new  Intl.DateTimeFormat('en-GB').format(new Date()); // транзакции для корректировок баланса всегда за сегодняшнюю дату (для простоты)
+    const today = new Date();
 
-    const newTransaction = {date:today,description:"ручная корректировка баланса",amount:Math.abs(balanceDelta),category:"other"}  
-    // в зависимости от знака изменения баланса (+ или -) добавим доход или расход
-    const transactionResult = balanceDelta>=0 ? transactionService.addIncome(newTransaction) : transactionService.addExpense(newTransaction);
-    
+    const newTransaction = {
+      date: (new Date).toISOString().split('T')[0],// транзакции для корректировок баланса всегда за сегодняшнюю дату (для простоты),
+      description:"Ручная корректировка баланса",
+      amount:Math.abs(balanceDelta),
+      category:"Прочее", 
+      transactionType: (balanceDelta>=0) ? 'Доходы' : 'Расходы',  // в зависимости от знака изменения баланса (+ или -) добавим доход или расход
+      userId:userId
+    }     
+
+    // добавляем транзакцию
+    const transactionResult =  transactionService.addTransaction(newTransaction);    
     // обновляем баланс
     const updateResult = await userService.update(userId,{balance:newBalance});    
 
@@ -23,11 +30,7 @@ const setBalance = async (req, res, next) => {
     res.status(201).json({
       status: "success",
       code: 201,
-      data: {
-        transactionResult,
-        updateResult,
-        balance: newBalance,
-      }
+      balance: newBalance
     });
   } catch (error) {
     next(error);

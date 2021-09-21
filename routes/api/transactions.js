@@ -9,8 +9,11 @@ const router = express.Router();
 
 router.get("/:type/:month", authentificate, ctrl.getAllForMonth);
 router.delete("/:objId", authentificate, ctrl.del);
-router.get("/brief", ctrl.getBrief);
-router.get("/count/:month", ctrl.getCount);
+
+// authentificate добавить в brief и month
+router.get("/brief", ctrl.readBrief);
+router.get("/:month", ctrl.getCount); // данные за месяц
+
 
 // Правильно импортировать схему
 // const {
@@ -18,10 +21,12 @@ router.get("/count/:month", ctrl.getCount);
 // } = require("../../models/schemas");
 
 // router.post("/expense", authentificate, validation(joiSchema),  ctrl.addExpense); // нужна валидация и джойсхема
-router.post("/expense", authentificate, ctrl.addExpense);
+// router.post("/expense", authentificate, ctrl.addExpense);
 // router.post("/income", authentificate, validation(joiSchema), ctrl.addIncome); // нужна валидация и джойсхема
-router.post("/income", authentificate, ctrl.addIncome);
+// router.post("/income", authentificate, ctrl.addIncome);
 
 router.post("/", authentificate, ctrl.addTransaction);
+
+router.get("/day/:type/:date", authentificate, ctrl.getExpenseByDate);
 
 module.exports = router;
