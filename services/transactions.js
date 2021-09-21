@@ -14,25 +14,21 @@ const listIncomes = () => {
   );
 };
 
-
 const readBrief = async (query) => {
-  const data = await Transaction.find(
-    { transactionType: query.type },
+  const data = await Transaction.find({
+    $and: [
+      { transactionType: query.type },
+      { userId: query.user },
+    ],
+  });
 
-    "_id date description amount category transactionType"
-  );
-
-
-  const findTransactions = data.filter(
-    ({ date }) => {
-      if (date) {
-        return date.slice(6) === query.year;
-      }
+  const findTransactions = data.filter(({ date }) => {
+    if (date) {
+      return date.slice(6) === query.year;
     }
-  );
+  });
   return findTransactions;
 };
-
 
 const listCount = async (owner, month) => {
   const data = await Transaction.find(
@@ -42,7 +38,6 @@ const listCount = async (owner, month) => {
   const count = data.filter(({ date }) => date.slice(3) === month);
   return count;
 };
-
 
 const remove = async (objId, userId) => {
   const filter = { _id: objId, userId: userId };
@@ -54,7 +49,7 @@ const remove = async (objId, userId) => {
 };
 
 const getForMonth = async (id, type, month) => {
-  console.log(type)
+  console.log(type);
   const data = await Transaction.find({ userId: id, type: type });
   const filtered = data.filter((obj) => {
     const monthSLice = obj.date.slice(3);
@@ -68,7 +63,6 @@ const getForMonth = async (id, type, month) => {
 const addTransaction = (newTransaction) => {
   return Transaction.create(newTransaction);
 };
-
 
 module.exports = {
   listExpenses,

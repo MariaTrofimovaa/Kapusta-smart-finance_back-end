@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get("/:type/:month", authentificate, ctrl.getAllForMonth);
 router.delete("/:objId", authentificate, ctrl.del);
-router.get("/brief", ctrl.readBrief);
+router.get("/brief", ctrl.getBrief);
 router.get("/count/:month", ctrl.getCount);
 
 // Правильно импортировать схему
