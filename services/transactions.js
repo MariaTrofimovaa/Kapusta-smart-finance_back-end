@@ -48,12 +48,10 @@ const remove = async (objId, userId) => {
 };
 
 const getForMonth = async (id, type, month) => {
-
   const data = await Transaction.find({ userId: id, transactionType: type });
 
   const filtered = data.filter((obj) => {
-    const monthSLice = obj.date.slice(3);
-
+    const monthSLice = obj.date.slice(0, 7);
     return monthSLice === month;
   });
 
