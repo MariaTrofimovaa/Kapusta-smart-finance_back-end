@@ -2,13 +2,13 @@ const { Category } = require("../models");
 
 const listExpenseCategories = () => {
   return Category.find(
-    { transactionType: "Расходы" },
+    { transactionType: "expense" },
     "_id date description amount category transactionType"
   );
 };
 const listIncomeCategories = () => {
   return Category.find(
-    { transactionType: "Доходы" },
+    { transactionType: "income" },
     "_id date description amount category transactionType"
   );
 };
