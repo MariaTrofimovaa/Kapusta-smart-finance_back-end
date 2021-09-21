@@ -64,14 +64,15 @@ const addTransaction = (newTransaction) => {
 };
 
 // Алена начала делать запрос на вызов транзакций по конкретному дню. Еще не доделала
-const getExpenseByDate = async (type, date) => {
-  const response = await Transaction.find({
+const getExpenseByDate = async (id, type, date) => {
+  const result = await Transaction.find({
+    userId: id,
     transactionType: type,
     date: date,
   });
-  return response;
-};
 
+  return result;
+};
 module.exports = {
   listExpenses,
   listIncomes,
