@@ -11,7 +11,7 @@ router.get("/:type/:month", authentificate, ctrl.getAllForMonth);
 router.delete("/:objId", authentificate, ctrl.del);
 
 // authentificate добавить в brief и month
-router.get("/brief", ctrl.readBrief);
+router.get("/brief", ctrl.getBrief);
 router.get("/:month", ctrl.getCount); // данные за месяц
 
 
