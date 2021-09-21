@@ -46,7 +46,7 @@ const transactionSchema = Schema({
   transactionType: {
     type: String,
     required: true,
-    enum: ["Расходы", "Доходы"],
+    enum: ["expense", "income"],
   },
   userId: {
     type: Schema.Types.ObjectId,
