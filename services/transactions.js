@@ -14,11 +14,19 @@ const listIncomes = () => {
   );
 };
 
-const readBrief = ({ type }) => {
-  return Transaction.find(
-    { transactionType: type },
+const readBrief = async (query) => {
+  const data = await Transaction.find(
+    { transactionType: query.type },
+
     "_id date description amount category transactionType"
   );
+
+  const findTransactions = data.filter(({ date }) => {
+    if (date) {
+      return date.slice(6) === query.year;
+    }
+  });
+  return findTransactions;
 };
 
 const listCount = async (owner, month) => {
@@ -40,7 +48,9 @@ const remove = async (objId, userId) => {
 };
 
 const getForMonth = async (id, type, month) => {
+
   const data = await Transaction.find({ userId: id, transactionType: type });
+
   const filtered = data.filter((obj) => {
     const monthSLice = obj.date.slice(3);
 
@@ -54,6 +64,22 @@ const addTransaction = (newTransaction) => {
   return Transaction.create(newTransaction);
 };
 
+// Алена начала делать запрос на вызов транзакций по конкретному дню. Еще не доделала
+const getAllByDate = async (date, type) => {
+  console.log(date);
+  const response = await Transaction.find({
+    date: date,
+  });
+  console.log("......................Response");
+  console.log(response);
+  const filteredResponse = response.filter((item) => {
+    item.type === type;
+  });
+  console.log("filteredResponse");
+  console.log(filteredResponse);
+  return filteredResponse;
+};
+
 module.exports = {
   listExpenses,
   listIncomes,
@@ -62,4 +88,5 @@ module.exports = {
   remove,
   getForMonth,
   addTransaction,
+  getAllByDate,
 };

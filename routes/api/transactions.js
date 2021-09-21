@@ -2,19 +2,14 @@
 
 const express = require("express");
 
-const { transactions: ctrl, auth } = require("../../controllers");
-
-// const authentificate = require("../../middlewares/authentificate");
+const { transactions: ctrl } = require("../../controllers");
 const { validation, authentificate } = require("../../middlewares"); // лучше так импортировать
 
 const router = express.Router();
 
 router.get("/:type/:month", authentificate, ctrl.getAllForMonth);
 router.delete("/:objId", authentificate, ctrl.del);
-
 router.get("/brief", ctrl.readBrief);
-// router.get("/brief", ctrl.readBrief);
-
 router.get("/count/:month", ctrl.getCount);
 
 // Правильно импортировать схему
@@ -28,5 +23,9 @@ router.post("/expense", authentificate, ctrl.addExpense);
 router.post("/income", authentificate, ctrl.addIncome);
 
 router.post("/", authentificate, ctrl.addTransaction);
+
+// Алена начала делать запрос на вызов транзакций по конкретному дню. Еще не доделала
+
+router.get("/:date", authentificate, ctrl.getAllByDate);
 
 module.exports = router;
