@@ -8,6 +8,7 @@ const { SECRET_KEY } = process.env;
 const authentificate = async (req, res, next) => {
   try {
     const { authorization } = req.headers;
+
     const [bearer, token] = authorization.split(" ");
     if (bearer !== "Bearer") {
       return res.status(401).json({
