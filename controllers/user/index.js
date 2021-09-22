@@ -1,7 +1,7 @@
-const getBalance = require("./getBalance");
+const getCurrent = require("./getCurrent");
 const setBalance = require("./setBalance");
 
 module.exports = {
-    getBalance,
+    getCurrent,
     setBalance,
 };
