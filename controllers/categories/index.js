@@ -1,7 +1,5 @@
-const listIncomeCategories = require("./listIncomeCategories");
-const listExpenseCategories = require("./listExpenseCategories");
+const getByType = require("./getByType");
 
 module.exports = {
-  listIncomeCategories,
-  listExpenseCategories,
+  getByType,
 };

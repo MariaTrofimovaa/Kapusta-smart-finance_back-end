@@ -1,8 +1,10 @@
 const { categories: service } = require("../../services");
 
-const listIncomeCategories = async (req, res, next) => {
+const getByType = async (req, res, next) => {
   try {
-    const result = await service.listIncomeCategories();
+    const { type } = req.params;
+    console.log(type);
+    const result = await service.getByType(type);
     res.json({
       status: "sucess",
       code: 200,
@@ -15,4 +17,4 @@ const listIncomeCategories = async (req, res, next) => {
   }
 };
 
-module.exports = listIncomeCategories;
+module.exports = getByType;
