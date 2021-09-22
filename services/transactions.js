@@ -14,18 +14,18 @@ const listIncomes = () => {
   );
 };
 
-const readBrief = async (query) => {
-  const data = await Transaction.find({
-    $and: [{ transactionType: query.type }, { userId: query.user }],
-  });
-  return data;
+const readBrief = async (query, _id) => {
 
-  // const findTransactions = data.filter(({ date }) => {
-  //   if (date) {
-  //     return date.slice(6) === query.year;
-  //   }
-  // });
-  // return findTransactions;
+  const data = await Transaction.find({
+    $and: [{ transactionType: query.type }, { userId: _id }],
+  });
+
+  const findTransactions = data.filter(({ date }) => {
+    if (date) {
+      return date.slice(6) === query.year;
+    }
+  });
+  return findTransactions;
 };
 
 const listCount = async (owner, month) => {
