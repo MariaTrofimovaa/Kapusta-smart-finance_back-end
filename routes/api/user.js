@@ -4,9 +4,10 @@ const authentificate = require("../../middlewares/authentificate");
 
 const router = express.Router();
 
-//router.get("/", authentificate, userCtrl.getBalance);
-router.get("/current", authentificate, userCtrl.getCurrent); //добавлено
-//router.patch("/",authentificate, userCtrl.setBalance);
-router.patch("/balance",authentificate, userCtrl.setBalance); //исправлено
+// ********* 1. Все обернуть в ctrlWrapper - импорт:
+// const { ctrlWrapper } = require("../../helpers");
+
+router.get("/current", authentificate, userCtrl.getCurrent);
+router.patch("/balance", authentificate, userCtrl.setBalance);
 
 module.exports = router;

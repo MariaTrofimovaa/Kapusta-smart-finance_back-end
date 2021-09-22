@@ -7,7 +7,7 @@ const getAllForMonth = async (req, res, next) => {
     const result = await service.getForMonth(_id, type, month);
     if(result.length === 0) {
       res.json({
-        status: "success",
+        status: "error",
         code: 404,
         data: result,
         message: 'Not found'
