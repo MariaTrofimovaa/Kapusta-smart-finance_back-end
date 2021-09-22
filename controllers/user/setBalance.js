@@ -15,7 +15,7 @@ const setBalance = async (req, res, next) => {
       description:"Ручная корректировка баланса",
       amount:Math.abs(balanceDelta),
       category:"Прочее", 
-      transactionType: (balanceDelta>=0) ? 'Доходы' : 'Расходы',  // в зависимости от знака изменения баланса (+ или -) добавим доход или расход
+      transactionType: (balanceDelta>=0) ? 'income' : 'expense',  // в зависимости от знака изменения баланса (+ или -) добавим доход или расход
       userId:userId
     }     
 
@@ -30,7 +30,8 @@ const setBalance = async (req, res, next) => {
     res.status(201).json({
       status: "success",
       code: 201,
-      balance: newBalance
+      balance: newBalance,
+      transaction: transactionResult
     });
   } catch (error) {
     next(error);
