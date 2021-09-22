@@ -5,6 +5,7 @@ const { nanoid } = require("nanoid");
 const signup = async (req, res, next) => {
   try {
     const { email } = req.body;
+ 
     const user = await service.getOne({ email });
     if (user) {
       return res.status(409).json({
@@ -16,10 +17,11 @@ const signup = async (req, res, next) => {
     const verifyToken = nanoid();
 
     const newUser = await service.add({ ...req.body, verifyToken });
+  
 
     // const verifyToken = "asdf*gsdhdsd!dfedf"; // создаем токен верификации
 
-    await service.update(_id, { verifyToken });
+    await service.update(newUser._id, { verifyToken });
 
     // записываем токен в базу человеку, который регистрируется
 

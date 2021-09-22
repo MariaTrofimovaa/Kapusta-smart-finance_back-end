@@ -1,5 +1,8 @@
-const { transactions } = require("../../models/schemas");
-const { users: userService, transactions: transactionService } = require("../../services");
+// const { transactions } = require("../../models/schemas");
+const {
+  users: userService,
+  transactions: transactionService,
+} = require("../../services");
 
 const setBalance = async (req, res, next) => {
   try {
@@ -11,32 +14,33 @@ const setBalance = async (req, res, next) => {
     const today = new Date();
 
     const newTransaction = {
-      date: (new Date).toISOString().split('T')[0],// транзакции для корректировок баланса всегда за сегодняшнюю дату (для простоты),
-      description:"Ручная корректировка баланса",
-      amount:Math.abs(balanceDelta),
-      category:"Прочее", 
-      transactionType: (balanceDelta>=0) ? 'income' : 'expense',  // в зависимости от знака изменения баланса (+ или -) добавим доход или расход
-      userId:userId
-    }     
+      date: new Date().toISOString().split("T")[0], // транзакции для корректировок баланса всегда за сегодняшнюю дату (для простоты),
+      description: "Ручная корректировка баланса",
+      amount: Math.abs(balanceDelta),
+      category: "Прочее",
+      transactionType: balanceDelta >= 0 ? "income" : "expense", // в зависимости от знака изменения баланса (+ или -) добавим доход или расход
+      userId: userId,
+    };
 
     // добавляем транзакцию
-    const transactionResult =  transactionService.addTransaction(newTransaction);    
+    const transactionResult = transactionService.addTransaction(newTransaction);
     // обновляем баланс
-    const updateResult = await userService.update(userId,{balance:newBalance});    
+    const updateResult = await userService.update(userId, {
+      balance: newBalance,
+    });
 
-    // получим обновленный баланс из базы  
-    const {balance} = await userService.getById(userId);
+    // получим обновленный баланс из базы
+    const { balance } = await userService.getById(userId);
 
     res.status(201).json({
       status: "success",
       code: 201,
       balance: newBalance,
-      transaction: transactionResult
+      transaction: transactionResult,
     });
   } catch (error) {
     next(error);
   }
 };
-
 
 module.exports = setBalance;

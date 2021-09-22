@@ -3,7 +3,7 @@ const { categories: service } = require("../../services");
 const getByType = async (req, res, next) => {
   try {
     const { type } = req.params;
-    console.log(type);
+    // console.log(type);
     const result = await service.getByType(type);
     res.json({
       status: "sucess",

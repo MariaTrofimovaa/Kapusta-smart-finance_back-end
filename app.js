@@ -31,14 +31,12 @@ app.use(cors()); // используем мидлвару, чтобы появи
 app.use(express.json()); // чтобы put и patch запросы считывались
 
 app.use("/api/v1/auth", api.auth);
-// app.use("/api/v1/", api.user); //обработчик маршрута user
 app.use("/api/v1/transactions", api.transactions); //обработчик маршрута transactions
 app.use("/api/v1/user", api.users);
 app.use("/api/v1/categories", api.categories); //обработчик маршрута category
 
 // пишем обработчик несуществующих запроосов:
 app.use((_, res) => {
-  console.log("error");
   res.status(404).send({
     status: "error",
     code: 404,
@@ -50,12 +48,9 @@ app.use((_, res) => {
 
 app.use((error, _, res, __) => {
   const { status = 500, message = "Server error" } = error;
-  console.log(error);
   res.status(status).json({
     status: "error",
     code: status,
     message,
   });
 });
-
-// module.exports = app;
