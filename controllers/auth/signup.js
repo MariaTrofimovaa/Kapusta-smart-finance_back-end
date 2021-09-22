@@ -21,7 +21,7 @@ const signup = async (req, res, next) => {
 
     // const verifyToken = "asdf*gsdhdsd!dfedf"; // создаем токен верификации
 
-    await service.update(newUser._id, { verifyToken });
+    // await service.update(newUser._id, { verifyToken });
 
     // записываем токен в базу человеку, который регистрируется
 
@@ -40,11 +40,16 @@ const signup = async (req, res, next) => {
       console.log(error);
     }
 
-    res.status(201).json({
-      status: "success",
-      code: 201,
-      message: "Successfully registered. Please verify your email!",
-    });
+   res.json({
+     status: "success",
+     code: 201,
+     message: "Successfully registered. Please verify your email!!",
+     data: {
+       email,
+       verifyToken,
+     },
+   });
+
   } catch (error) {
     next(error);
   }
