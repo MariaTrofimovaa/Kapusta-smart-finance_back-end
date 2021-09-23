@@ -5,6 +5,7 @@ const { nanoid } = require("nanoid");
 const signup = async (req, res, next) => {
   try {
     const { email } = req.body;
+ 
     const user = await service.getOne({ email });
     if (user) {
       return res.status(409).json({
@@ -16,8 +17,14 @@ const signup = async (req, res, next) => {
     const verifyToken = nanoid();
 
     const newUser = await service.add({ ...req.body, verifyToken });
+  
 
-    // await service.update(_id, { verifyToken });
+    // await service.update(_id, { verifyToken }); - будет ошибка _id is not defind
+    // await service.update(newUser._id, { verifyToken });
+    
+    // const verifyToken = "asdf*gsdhdsd!dfedf"; // создаем токен верификации
+
+
 
     // записываем токен в базу человеку, который регистрируется
 
@@ -35,6 +42,7 @@ const signup = async (req, res, next) => {
     } catch (error) {
       console.log(error);
     }
+
     res.json({
       status: "success",
       code: 201,
@@ -44,6 +52,7 @@ const signup = async (req, res, next) => {
         verifyToken,
       },
     });
+
   } catch (error) {
     next(error);
   }

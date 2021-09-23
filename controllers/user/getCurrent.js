@@ -1,6 +1,6 @@
-const { users: service } = require("../../services");
+// const { users: service } = require("../../services");
 
-const getBalance = async (req, res, next) => {
+const getCurrent = async (req, res, next) => {
   try {
     const balance = req.user.balance; // данные пользователя из базы получает предыдуший authentificate, так что еще один запрос в базу уже не нужен
 
@@ -14,4 +14,4 @@ const getBalance = async (req, res, next) => {
   }
 };
 
-module.exports = getBalance;
+module.exports = getCurrent;
