@@ -13,7 +13,7 @@ const add = ({ password, ...rest }) => {
 };
 
 const update = (id, updateUser) => {
-  return User.findByIdAndUpdate(id, updateUser);
+  return User.findByIdAndUpdate(id, updateUser, {new:true});
 };
 
 module.exports = {
