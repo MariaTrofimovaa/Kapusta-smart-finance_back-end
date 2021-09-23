@@ -1,5 +1,7 @@
 const { users: service } = require("../../services");
 const jwt = require("jsonwebtoken");
+// 1. берем секретный ключ для генерации токена из переменной окружения
+const { SECRET_KEY } = process.env;
 
 const signin = async (req, res, next) => {
   try {
@@ -16,16 +18,14 @@ const signin = async (req, res, next) => {
       });
     }
 
-    // 1. создаем payload
+    // 2. создаем payload
     const payload = {
       id: user._id,
     };
-    // 2. берем секретный ключ для генерации токена из переменной окружения
-    const { SECRET_KEY } = process.env; // каждый раз не нужно вызывать dotenv, он уже есть в app
 
     // 3. если пароль верный, гененрируем токен и отправляем
     const token = jwt.sign(payload, SECRET_KEY);
-    await service.update(user._id, { token, email }); // сохраняем токен в базе данных
+    await service.update(user._id, { token }); // сохраняем токен в базе данных
     res.json({
       status: "success",
       code: 200,
