@@ -9,7 +9,7 @@ const router = express.Router();
 // const { ctrlWrapper } = require("../../helpers");
 
 router.get("/:type/:month", authentificate, ctrl.getAllForMonth);
-router.delete("/:objId", authentificate, ctrl.del);
+router.delete("/:id", authentificate, ctrl.del);
 router.get("/brief", authentificate, ctrl.getBrief);
 
 // ********* 2. authentificate добавить в  month

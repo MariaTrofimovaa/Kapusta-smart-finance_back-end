@@ -2,9 +2,9 @@ const { transactions: service } = require("../../services");
 
 const del = async (req, res, next) => {
   try {
-    const { objId } = await req.params;
+    const { id } = await req.params;
     const { _id } = req.user;
-    const obj = await service.remove(objId, _id);
+    const obj = await service.remove(id, _id);
 
     if (obj) {
       return res.status(200).json({
