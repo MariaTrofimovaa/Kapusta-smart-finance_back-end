@@ -19,9 +19,12 @@ const signup = async (req, res, next) => {
     const newUser = await service.add({ ...req.body, verifyToken });
   
 
+    // await service.update(_id, { verifyToken }); - будет ошибка _id is not defind
+    // await service.update(newUser._id, { verifyToken });
+    
     // const verifyToken = "asdf*gsdhdsd!dfedf"; // создаем токен верификации
 
-    // await service.update(newUser._id, { verifyToken });
+
 
     // записываем токен в базу человеку, который регистрируется
 
@@ -40,15 +43,15 @@ const signup = async (req, res, next) => {
       console.log(error);
     }
 
-   res.json({
-     status: "success",
-     code: 201,
-     message: "Successfully registered. Please verify your email!!",
-     data: {
-       email,
-       verifyToken,
-     },
-   });
+    res.json({
+      status: "success",
+      code: 201,
+      message: "Successfully registered. Please verify your email!!",
+      data: {
+        email,
+        verifyToken,
+      },
+    });
 
   } catch (error) {
     next(error);
