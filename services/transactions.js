@@ -15,7 +15,6 @@ const listIncomes = () => {
 };
 
 const readBrief = async (query, _id) => {
-
   const data = await Transaction.find({
     $and: [{ transactionType: query.type }, { userId: _id }],
   });
@@ -37,12 +36,12 @@ const listCount = async (owner, month) => {
   return count;
 };
 
-const remove = async (objId, userId) => {
-  const filter = { _id: objId, userId: userId };
+const remove = async (id, userId) => {
+  const filter = { _id: id, userId: userId };
   const user = await Transaction.findById(filter);
   if (!user || user.length < 1) return false;
 
-  const result = await Transaction.findByIdAndDelete({ _id: objId });
+  const result = await Transaction.findByIdAndDelete({ _id: id });
   return result;
 };
 
