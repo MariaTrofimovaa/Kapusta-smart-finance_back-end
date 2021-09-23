@@ -15,6 +15,8 @@ router.post("/signin", validation(joiSchema), ctrl.signin);
 router.get("/current", authentificate, ctrl.getCurrentUser);
 router.get("/logout", authentificate, ctrl.logout);
 
+router.post("/googlelogin", ctrl.googlelogin);
+
 // ***** Комментарии от Богдана:
 // Не хватает роута для верификации email
 // Нет валидации при логине, а она нужна.
