@@ -1,11 +1,11 @@
 const getCurrentUser = async (req, res, next) => {
   try {
-    console.log(req.user);
     const { email } = req.user; // забираем данные пользователя
+    console.log(res);
     res.json({
       status: "success",
       code: 200,
-      data: { email },
+      email,
     });
   } catch (error) {
     next(error);
