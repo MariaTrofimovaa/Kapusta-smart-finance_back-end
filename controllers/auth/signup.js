@@ -1,5 +1,10 @@
 const { users: service } = require("../../services");
-const { sendEmail } = require("../../utils");
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+// const { SENDGRID_API_KEY } = process.env;
+
+// const { sendEmail } = require("../../utils");
 const { nanoid } = require("nanoid");
 
 const signup = async (req, res, next) => {
@@ -25,21 +30,6 @@ const signup = async (req, res, next) => {
 
     // записываем токен в базу человеку, который регистрируется
 
-    const { URL } = process.env;
-
-    // создаем еmail со ссылкой на адрес сайта с роутом верификации
-    const sendToEmail = {
-      to: newUser.email,
-      subject: "Verify email",
-      html: `<a href="${URL}/api/v1/auth/verify/${verifyToken}" target="_blank">Please verify your email<a/>`,
-    };
-
-    try {
-      await sendEmail(sendToEmail); //отправляем письмо юзеру
-    } catch (error) {
-      console.log(error);
-    }
-
     res.json({
       status: "success",
       code: 201,
@@ -51,6 +41,23 @@ const signup = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
+  }
+  const { URL } = process.env;
+
+  // создаем еmail со ссылкой на адрес сайта с роутом верификации
+  const sendToEmail = {
+    from: "y.p.p@i.ua",
+    to: newUser.email,
+    subject: "Verify email",
+    html: `<a href="${URL}/api/v1/auth/verify/${verifyToken}" target="_blank">Please verify your email<a/>`,
+  };
+
+  try {
+    await sgMail.send(sendToEmail);
+    console.log("Email sent");
+    //отправляем письмо юзеру
+  } catch (error) {
+    console.log(error);
   }
 };
 
