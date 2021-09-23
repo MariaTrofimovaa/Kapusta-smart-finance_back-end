@@ -15,7 +15,7 @@ const addTransaction = async (req, res, next) => {
     return res.status(201).json({
       status: "success",
       code: 201,
-      data: {addedTransaction,updatedBalance},
+      data: {addedTransaction,updatedBalance: updatedBalance.balance},
     });
   } catch (error) {
     console.log(error);

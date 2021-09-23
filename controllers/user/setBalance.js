@@ -1,4 +1,6 @@
 // const { transactions } = require("../../models/schemas");
+const moment = require('moment');
+
 const {
   users: userService,
   transactions: transactionService,
@@ -11,10 +13,9 @@ const setBalance = async (req, res, next) => {
     const oldBalance = req.user.balance;
     const newBalance = req.body.balance;
     const balanceDelta = !oldBalance ? newBalance : newBalance - oldBalance;
-    const today = new Date();
 
     const newTransaction = {
-      date: new Date().toISOString().split("T")[0], // транзакции для корректировок баланса всегда за сегодняшнюю дату (для простоты),
+      date: moment(new Date).format('DD.MM.YYYY'), // транзакции для корректировок баланса всегда за сегодняшнюю дату (для простоты),
       description: "Ручная корректировка баланса",
       amount: Math.abs(balanceDelta),
       category: "Прочее",
