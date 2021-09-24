@@ -2,7 +2,7 @@ const express = require("express");
 
 const { transactions: ctrl } = require("../../controllers");
 const { validation, authentificate } = require("../../middlewares"); // лучше так импортировать
-const ctrlWrapper = require('../../helpers/ctrlWrapper')
+// const ctrlWrapper = require('../../helpers/ctrlWrapper')
 
 
 const router = express.Router();
@@ -27,7 +27,7 @@ const {
 router.post(
   "/",
   authentificate,
-  validation(joiSchema),
+//   validation(joiSchema),
   ctrlWrapper(ctrl.addTransaction)
 );
 
