@@ -1,26 +1,22 @@
 const { transactions: service } = require("../../services");
 
 const getAllForMonth = async (req, res, next) => {
-  try {
-    const { type, month } = req.params;
-    const { _id } = req.user;
-    const result = await service.getForMonth(_id, type, month);
-    if(result.length === 0) {
-      res.json({
-        status: "error",
-        code: 404,
-        data: result,
-        message: 'Not found'
-      });
-      }
-
+  const { type, month } = req.params;
+  const { _id } = req.user;
+  const result = await service.getForMonth(_id, type, month);
+  if (result.length === 0) {
     res.json({
-      status: "success",
-      code: 200,
+      status: "error",
+      code: 404,
       data: result,
+      message: "Not found",
     });
-  } catch (error) {
-    next(error);
   }
+
+  res.json({
+    status: "success",
+    code: 200,
+    data: result,
+  });
 };
 module.exports = getAllForMonth;

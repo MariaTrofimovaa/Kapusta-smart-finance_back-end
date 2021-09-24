@@ -6,26 +6,35 @@ const { validation, authentificate } = require("../../middlewares"); // лучш
 const router = express.Router();
 
 // ********* 1. Все обернуть в ctrlWrapper - импорт:
-// const { ctrlWrapper } = require("../../helpers");
+const { ctrlWrapper } = require("../../helpers");
 
-router.get("/:type/:month", authentificate, ctrl.getAllForMonth);
-router.delete("/:id", authentificate, ctrl.del);
-router.get("/brief", authentificate, ctrl.getBrief);
+router.get("/:type/:month", authentificate, ctrlWrapper(ctrl.getAllForMonth));
+router.delete("/:id", authentificate, ctrlWrapper(ctrl.del));
+router.get("/brief", authentificate, ctrlWrapper(ctrl.getBrief));
 
 // ********* 2. authentificate добавить в  month
-router.get("/:month", ctrl.getCount); // данные за месяц
+router.get("/:month", ctrlWrapper(ctrl.getCount)); // данные за месяц
 
 // ********* 3.  импортировать схему
 
-// const {
-//   transactions: { joiSchema },
-// } = require("../../models/schemas");
+const {
+  transactions: { joiSchema },
+} = require("../../models/schemas");
 
-router.post("/", authentificate, ctrl.addTransaction);
+router.post(
+  "/",
+  authentificate,
+  validation(joiSchema),
+  ctrlWrapper(ctrl.addTransaction)
+);
 
 // ********* 4. - добавить валидацию joiSchema
 // router.post("/", authentificate, validation(joiSchema), ctrl.addTransaction);
-router.get("/day/:type/:date", authentificate, ctrl.getExpenseByDate);
+router.get(
+  "/day/:type/:date",
+  authentificate,
+  ctrlWrapper(ctrl.getExpenseByDate)
+);
 
 module.exports = router;
 
