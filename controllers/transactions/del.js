@@ -6,19 +6,21 @@ const del = async (req, res, next) => {
     const { _id } = req.user;
 
     const transaction = await service.remove(id, _id);
-
+    // console.log(transaction);
     if (transaction) {
       // обновим баланс на сумму удаленной транзакции
-      console.log("deleted transaction", transaction);
+      // console.log("deleted transaction", transaction);
       const oldBalance = req.user.balance;
       const newBalance =
         oldBalance +
         transaction.amount *
           (transaction.transactionType === "expense" ? 1 : -1);
-      const updatedBalance = await userService.update(req.user._id, {
+
+      // const updatedBalance =
+      await userService.update(req.user._id, {
         balance: newBalance,
       });
-      console.log("New balance", newBalance);
+      // console.log("New balance", newBalance);
 
       // cформируем успешный ответ
       return res.status(200).json({
