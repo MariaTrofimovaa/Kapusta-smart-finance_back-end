@@ -24,20 +24,18 @@ const setBalance = async (req, res, next) => {
     };
 
     // добавляем транзакцию
-    const transactionResult = transactionService.addTransaction(newTransaction);
+    const addedTransaction = await transactionService.addTransaction(newTransaction);
     // обновляем баланс
     const updateResult = await userService.update(userId, {
-      balance: newBalance,
+      balance: newBalance, new:true
     });
 
-    // получим обновленный баланс из базы
-    const { balance } = await userService.getById(userId);
 
     res.status(201).json({
       status: "success",
       code: 201,
-      balance: newBalance,
-      transaction: transactionResult,
+      data: {updatedBalance: updateResult.balance,
+            addedTransaction: addedTransaction},
     });
   } catch (error) {
     next(error);
