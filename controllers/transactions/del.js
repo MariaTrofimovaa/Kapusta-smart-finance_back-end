@@ -1,10 +1,9 @@
 const { transactions: service, users: userService } = require("../../services");
 
 const del = async (req, res, next) => {
-  try {
-    const { id } = await req.params;
-    const { _id } = req.user;
-
+  const { id } = await req.params;
+  const { _id } = req.user;
+  
     const transaction = await service.remove(id, _id);
     // console.log(transaction);
     if (transaction) {
@@ -34,10 +33,6 @@ const del = async (req, res, next) => {
 
     // ошибка
     return res.json({ status: "error", code: 404, message: "Not found" });
-  } catch (error) {
-    console.log(error);
-    next(error);
-  }
 };
 
 module.exports = del;

@@ -2,15 +2,14 @@
 
 const express = require("express");
 // const { routes } = require("../../app");
+const { validation, authentificate } = require("../../middlewares");
 
 const { categories: ctrl } = require("../../controllers");
-// const { authentificate } = require("../../middlewares");
 
 const router = express.Router();
 
-// ********* 1. Все обернуть в ctrlWrapper - импорт:
-// const { ctrlWrapper } = require("../../helpers");
+const { ctrlWrapper } = require("../../helpers");
 
-router.get("/:type", ctrl.getByType);
+router.get("/:type", authentificate, ctrlWrapper(ctrl.getByType));
 
 module.exports = router;
