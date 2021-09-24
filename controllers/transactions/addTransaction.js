@@ -1,8 +1,7 @@
 const { transactions: service, users: userService } = require("../../services");
 
 const addTransaction = async (req, res, next) => {
-  try {
-    const addedTransaction = await service.addTransaction({
+  const addedTransaction = await service.addTransaction({
       ...req.body,
       userId: req.user._id,
     });
@@ -16,6 +15,11 @@ const addTransaction = async (req, res, next) => {
     const updatedBalance = await userService.update(req.user._id, {
       balance: newBalance,
     });
+// Может стоить оставить без переменной? (Маша)
+//   await userService.update(req.user._id, {
+//       balance: newBalance,
+//     });
+  
     // console.log("updatedBalance", updatedBalance);
     // console.log("New balance", newBalance);
 
@@ -25,9 +29,6 @@ const addTransaction = async (req, res, next) => {
       data: { addedTransaction },
       // data: {addedTransaction,updatedBalance: updatedBalance.balance},
     });
-  } catch (error) {
-    console.log(error);
-    next(error);
-  }
+
 };
 module.exports = addTransaction;
