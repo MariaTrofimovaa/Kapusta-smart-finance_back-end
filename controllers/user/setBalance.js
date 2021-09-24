@@ -1,5 +1,5 @@
 // const { transactions } = require("../../models/schemas");
-const moment = require('moment');
+const moment = require("moment");
 
 const {
   users: userService,
@@ -15,7 +15,7 @@ const setBalance = async (req, res, next) => {
     const balanceDelta = !oldBalance ? newBalance : newBalance - oldBalance;
 
     const newTransaction = {
-      date: moment(new Date).format('DD.MM.YYYY'), // транзакции для корректировок баланса всегда за сегодняшнюю дату (для простоты),
+      date: moment(new Date()).format("DD.MM.YYYY"), // транзакции для корректировок баланса всегда за сегодняшнюю дату (для простоты),
       description: "Ручная корректировка баланса",
       amount: Math.abs(balanceDelta),
       category: "Прочее",
@@ -24,20 +24,22 @@ const setBalance = async (req, res, next) => {
     };
 
     // добавляем транзакцию
-    const transactionResult = transactionService.addTransaction(newTransaction);
+    const addedTransaction = await transactionService.addTransaction(
+      newTransaction
+    );
     // обновляем баланс
-    const updateResult = await userService.update(userId, {
-      balance: newBalance,
-    });
-
-    // получим обновленный баланс из базы
-    const { balance } = await userService.getById(userId);
+    // const updateResult = await userService.update(userId, {
+    //   balance: newBalance,
+    //   new: true,
+    // });
 
     res.status(201).json({
       status: "success",
       code: 201,
-      balance: newBalance,
-      transaction: transactionResult,
+      data: {
+        // updatedBalance: updateResult.balance,
+        addedTransaction,
+      },
     });
   } catch (error) {
     next(error);

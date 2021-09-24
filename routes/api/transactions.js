@@ -2,6 +2,8 @@ const express = require("express");
 
 const { transactions: ctrl } = require("../../controllers");
 const { validation, authentificate } = require("../../middlewares"); // лучше так импортировать
+const ctrlWrapper = require('../../helpers/ctrlWrapper')
+
 
 const router = express.Router();
 
@@ -11,6 +13,7 @@ const { ctrlWrapper } = require("../../helpers");
 router.get("/:type/:month", authentificate, ctrlWrapper(ctrl.getAllForMonth));
 router.delete("/:id", authentificate, ctrlWrapper(ctrl.del));
 router.get("/brief", authentificate, ctrlWrapper(ctrl.getBrief));
+
 
 // ********* 2. authentificate добавить в  month
 router.get("/:month", ctrlWrapper(ctrl.getCount)); // данные за месяц
