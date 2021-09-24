@@ -6,6 +6,8 @@ const addTransaction = async (req, res, next) => {
       ...req.body,
       userId: req.user._id,
     });
+    // console.log(req.body);
+    // console.log(req.user);
     // обновим баланс
     const oldBalance = req.user.balance;
     const newBalance =
@@ -14,7 +16,8 @@ const addTransaction = async (req, res, next) => {
     const updatedBalance = await userService.update(req.user._id, {
       balance: newBalance,
     });
-    console.log("New balance", newBalance);
+    // console.log("updatedBalance", updatedBalance);
+    // console.log("New balance", newBalance);
 
     return res.status(201).json({
       status: "success",

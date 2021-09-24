@@ -8,6 +8,8 @@ const {
 
 const setBalance = async (req, res, next) => {
   try {
+    // console.log("req.user", req.user);
+    // console.log("req.body", req.body);
     const userId = req.user._id;
     // сначала добавим транзакцию для корректировки баланса на сумму разницы между текущим балансом (чаще всего 0) и желаемым
     const oldBalance = req.user.balance;
@@ -28,16 +30,17 @@ const setBalance = async (req, res, next) => {
       newTransaction
     );
     // обновляем баланс
-    // const updateResult = await userService.update(userId, {
-    //   balance: newBalance,
-    //   new: true,
-    // });
+    const updateResult = await userService.update(userId, {
+      balance: newBalance,
+      new: true,
+    });
+    // console.log(updateResult);
 
     res.status(201).json({
       status: "success",
       code: 201,
       data: {
-        // updatedBalance: updateResult.balance,
+        updatedBalance: updateResult.balance,
         addedTransaction,
       },
     });
