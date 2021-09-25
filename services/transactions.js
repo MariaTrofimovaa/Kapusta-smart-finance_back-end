@@ -60,7 +60,6 @@ const addTransaction = (newTransaction) => {
   return Transaction.create(newTransaction);
 };
 
-// Алена начала делать запрос на вызов транзакций по конкретному дню. Еще не доделала
 const getExpenseByDate = async (id, type, date) => {
   const result = await Transaction.find({
     userId: id,

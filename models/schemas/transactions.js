@@ -56,7 +56,7 @@ const transactionSchema = Schema({
 });
 
 // ********* 1. Импортировать joiSchema
-// const Joi = require("joi");
+const Joi = require("joi");
 
 // ********* 2. Добавить регулярное выражение
 // const dateRegExp = /^[0-3]{1}[0-1]{1}.[0-1]{1}[0-9]{1}.[1-2]{1}[0-9]{3}$/
@@ -70,16 +70,16 @@ const transactionSchema = Schema({
 
 // ********* 4. Собственно сама схема. Наверное у нас опять все полетит (Маша)
 
-// const joiSchema = Joi.object({
-//   // date: Joi.string().pattern(dateRegExp).required(),
-//   date: Joi.string().required(),
-//   description: Joi.string().required(),
-//   amount: Joi.number().min(1).required(),
-//   category: Joi.string().required(),
-//   transactionType: Joi.string().required(),
-//   userId: Joi.string().required(),
-// });
+const joiSchema = Joi.object({
+  // date: Joi.string().pattern(dateRegExp).required(),
+  date: Joi.string().required(),
+  description: Joi.string().required(),
+  amount: Joi.number().min(1).required(),
+  category: Joi.string().required(),
+  transactionType: Joi.string().required(),
+  userId: Joi.string().required(),
+});
 
-// module.exports = { transactionSchema, joiSchema };
+module.exports = { transactionSchema, joiSchema };
 
-module.exports = { transactionSchema };
+// module.exports = { transactionSchema };
