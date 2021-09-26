@@ -1,7 +1,6 @@
 const getCurrentUser = async (req, res, next) => {
   try {
-    const { email, balance } = req.user; // забираем данные пользователя
-    // console.log(req.user);
+    const { email, balance } = req.user; 
     res.json({
       status: "success",
       code: 200,

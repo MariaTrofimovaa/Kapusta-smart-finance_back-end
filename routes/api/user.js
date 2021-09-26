@@ -1,12 +1,10 @@
 const express = require("express");
 const userCtrl = require("../../controllers").user;
 const authentificate = require("../../middlewares/authentificate");
+const { ctrlWrapper } = require("../../helpers");
 
 const router = express.Router();
 
-// ********* 1. Все обернуть в ctrlWrapper - импорт:
-// const { ctrlWrapper } = require("../../helpers");
-
-router.patch("/balance", authentificate, userCtrl.setBalance);
+router.patch("/balance", authentificate, ctrlWrapper(userCtrl.setBalance));
 
 module.exports = router;

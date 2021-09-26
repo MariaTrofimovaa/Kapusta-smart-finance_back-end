@@ -2,9 +2,6 @@ const { users: service } = require("../../services");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-// const { SENDGRID_API_KEY } = process.env;
-
-// const { sendEmail } = require("../../utils");
 const { nanoid } = require("nanoid");
 
 const signup = async (req, res, next) => {
@@ -20,7 +17,6 @@ const signup = async (req, res, next) => {
       });
     }
     const verifyToken = nanoid();
-    // записываем токен в базу человеку, который регистрируется
     const newUser = await service.add({ ...req.body, verifyToken });
 
     res.json({
@@ -37,7 +33,6 @@ const signup = async (req, res, next) => {
   }
   const { URL } = process.env;
 
-  // создаем еmail со ссылкой на адрес сайта с роутом верификации
   const sendToEmail = {
     from: "y.p.p@i.ua",
     to: newUser.email,
@@ -48,7 +43,6 @@ const signup = async (req, res, next) => {
   try {
     await sgMail.send(sendToEmail);
     console.log("Email sent");
-    //отправляем письмо юзеру
   } catch (error) {
     console.log(error);
   }

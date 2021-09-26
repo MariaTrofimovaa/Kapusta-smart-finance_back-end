@@ -1,4 +1,3 @@
-// const { date } = require("joi");
 const { Transaction } = require("../models");
 
 const listExpenses = () => {

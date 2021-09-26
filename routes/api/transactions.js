@@ -26,6 +26,6 @@ router.get(
 );
 
 // ********* Он нам не нужен ()
-router.get("/:month", ctrlWrapper(ctrl.getCount)); // данные за месяц
+// router.get("/:month", ctrlWrapper(ctrl.getCount)); // данные за месяц
 
 module.exports = router;

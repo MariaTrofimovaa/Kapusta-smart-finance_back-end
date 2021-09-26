@@ -7,13 +7,13 @@ const getOne = (filter) => {
 const getById = (id) => User.findById(id);
 
 const add = ({ password, ...rest }) => {
-  const newUser = new User(rest); // создаем новый экземпляр модели
-  newUser.setPassword(password); //сохраням пароль, он хеширует пароль внутри
+  const newUser = new User(rest);
+  newUser.setPassword(password);
   return newUser.save();
 };
 
 const update = (id, updateUser) => {
-  return User.findByIdAndUpdate(id, updateUser, {new:true});
+  return User.findByIdAndUpdate(id, updateUser, { new: true });
 };
 
 module.exports = {

@@ -10,15 +10,11 @@ const { auth: ctrl } = require("../../controllers");
 const router = express.Router();
 
 router.post("/signup", validation(joiSchema), ctrl.signup);
-router.get("/verify/:verifyToken", ctrl.verifyEmail); //запрос на считывание токена, при переходе юзера по ссылке в письме
+router.get("/verify/:verifyToken", ctrl.verifyEmail);
 router.post("/signin", validation(joiSchema), ctrl.signin);
 router.get("/current", authentificate, ctrl.getCurrentUser);
 router.get("/logout", authentificate, ctrl.logout);
 
 router.post("/googlelogin", ctrl.googlelogin);
-
-// ***** Комментарии от Богдана:
-// Не хватает роута для верификации email
-// Нет валидации при логине, а она нужна.
 
 module.exports = router;

@@ -1,14 +1,9 @@
-// Здесь должны быть роуты для получения категорий расходов или доходов.
-
 const express = require("express");
-// const { routes } = require("../../app");
-const { validation, authentificate } = require("../../middlewares");
-
+const { authentificate } = require("../../middlewares");
+const { ctrlWrapper } = require("../../helpers");
 const { categories: ctrl } = require("../../controllers");
 
 const router = express.Router();
-
-const { ctrlWrapper } = require("../../helpers");
 
 router.get("/:type", authentificate, ctrlWrapper(ctrl.getByType));
 

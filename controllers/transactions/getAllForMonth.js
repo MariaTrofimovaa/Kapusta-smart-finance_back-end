@@ -15,9 +15,7 @@ const getAllForMonth = async (req, res, next) => {
 
   res.json({
     status: "success",
-//     code: 200,
     code: 204,
-
     data: result,
   });
 };
