@@ -24,10 +24,9 @@ const googlelogin = (req, res) => {
           } else {
             if (user) {
               const token = jwt.sign({ _id: user._id }, SECRET_KEY);
-              const { _id, name, email } = user;
+              const { _id, email } = user;
               res.json({
-                token,
-                user: { _id, name, email },
+                user: { _id, token, email },
               });
             } else {
               let password = email + SECRET_KEY;
@@ -43,10 +42,9 @@ const googlelogin = (req, res) => {
                     .json({ error: "Something went wrong...." });
                 }
                 const token = jwt.sign({ _id: data._id }, SECRET_KEY);
-                const { _id, name, email } = newGoogleUser;
+                const { _id, email } = newGoogleUser;
                 res.json({
-                  token,
-                  user: { _id, name, email },
+                  user: { _id, token, email },
                 });
               });
             }
