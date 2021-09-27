@@ -14,7 +14,6 @@ const add = ({ password, ...rest }) => {
 
 const update = async (id, updateUser) => {
   const result = await User.findByIdAndUpdate(id, updateUser, { new: true });
-  // console.log("result", result);
   return result;
 };
 
