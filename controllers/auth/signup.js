@@ -5,32 +5,29 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const { nanoid } = require("nanoid");
 
 const signup = async (req, res, next) => {
-  try {
-    const { email } = req.body;
+  const { email } = req.body;
 
-    const user = await service.getOne({ email });
-    if (user) {
-      return res.status(409).json({
-        status: "error",
-        code: 409,
-        message: "Already registered",
-      });
-    }
-    const verifyToken = nanoid();
-    const newUser = await service.add({ ...req.body, verifyToken });
-
-    res.json({
-      status: "success",
-      code: 201,
-      message: "Successfully registered. Please verify your email!!",
-      data: {
-        email,
-        verifyToken,
-      },
+  const user = await service.getOne({ email });
+  if (user) {
+    return res.status(409).json({
+      status: "error",
+      code: 409,
+      message: "Already registered",
     });
-  } catch (error) {
-    next(error);
   }
+  const verifyToken = nanoid();
+  const newUser = await service.add({ ...req.body, verifyToken });
+
+  res.json({
+    status: "success",
+    code: 201,
+    message: "Successfully registered. Please verify your email!!",
+    data: {
+      email,
+      verifyToken,
+    },
+  });
+
   const { URL } = process.env;
 
   const sendToEmail = {
