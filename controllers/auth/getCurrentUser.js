@@ -1,16 +1,11 @@
 const getCurrentUser = async (req, res, next) => {
-  try {
-    const { email, balance } = req.user; 
-    res.json({
-      status: "success",
-      code: 200,
-      email,
-      balance,
-    });
-  } catch (error) {
-    console.log(error);
-    next(error);
-  }
+  const { email, balance } = req.user;
+  res.json({
+    status: "success",
+    code: 200,
+    email,
+    balance,
+  });
 };
 
 module.exports = getCurrentUser;
