@@ -1,0 +1,689 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "Kapusta-finance API docs",
+    "description": "API documentation for the GoIT 'Kapusta-finance' project. [Backend GitHub Repository](https://github.com/MariaTrofimovaa/Kapusta-smart-finance_back-end)",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "servers": [
+    {
+      "url": "http://localhost:4000/api-docs",
+      "description": "The production API server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Auth endpoints"
+    },
+    {
+      "name": "User",
+      "description": "User endpoints"
+    },
+    {
+      "name": "Categories",
+      "description": "Category endpoints"
+    },
+    {
+      "name": "Transactions",
+      "description": "Transactions endpoints"
+    }
+  ],
+  "paths": {
+    "/api/v1/auth/signup": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+        "parameters": [],
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignupRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully registered. Please verify your email!!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignupResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Already registered",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/api/v1/verify/:verifyToken": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "User verify",
+        "parameters": [],
+        "requestBody": {
+          "description": "Authentication's object",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Verification success"
+          },
+          "404": {
+            "description": "User not found by token during email verification",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/api/v1/auth/signin": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User signin",
+        "parameters": [],
+        "requestBody": {
+          "description": "Authentication's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SigninRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SigninRequest"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Wrong email or password / email is not verified",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/api/v1/auth/logout": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "User logout",
+        "security": [{ "Bearer": [] }],
+        "parameters": [],
+
+        "responses": {
+          "200": {
+            "description": "Logout success"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/current": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Get user information",
+        "security": [{ "Bearer": [] }],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid request body / Token not provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/v1/auth/googlelogin": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Auth user from GoogleAuth, after redirected to ..........",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/v1/user/balance": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Get current user balance",
+        "security": [{ "Bearer": [] }],
+        "parameters": [],
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/SetBalanceRequest"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SetBalanceResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body / Token not provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "'Not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/v1/categories/:type": {
+      "get": {
+        "tags": ["Categories"],
+        "summary": "Chose category",
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Chose category",
+          "required": true,
+          "content": {}
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {}
+          },
+          "400": {
+            "description": "Invalid request body / Token not provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+
+          "404": {
+            "description": "Not Found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/v1/transactions": {
+      "post": {
+        "tags": ["Transactions"],
+        "summary": "Add transaction",
+        "security": [{ "Bearer": [] }],
+        "parameters": [],
+        "requestBody": {
+          "description": "Transactions' object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddTransactionsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddTransactionsRequest"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/transactions/:type/:month": {
+      "get": {
+        "tags": ["Transactions"],
+        "summary": "Get all transactions for month",
+        "security": [{ "Bearer": [] }],
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body / Token not provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/api/v1/transactions/brief": {
+      "get": {
+        "tags": ["Transactions"],
+        "summary": "Get brief",
+        "security": [{ "Bearer": [] }],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BriefResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body / Token not provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+
+    "/api/v1/transactions/day/:type/:date": {
+      "get": {
+        "tags": ["Transactions"],
+        "summary": "Get transactions by date",
+        "security": [{ "Bearer": [] }],
+        "parameters": [],
+
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTransactionsByDayRquest"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body / Token not provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/v1/transactions/:id": {
+      "delete": {
+        "tags": ["Transactions"],
+        "summary": "Delete transaction",
+        "security": [{ "Bearer": [] }],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {}
+          },
+          "400": {
+            "description": "Invalid request body / Token not provided",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SignupRequest": {
+        "required": ["email", "password"],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "123456"
+          }
+        }
+      },
+      "SignupResponse": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "verifyToken": {
+            "type": "string",
+            "description": "User's id",
+            "example": "GT-qCkBVrUinYxM12ZEK2"
+          }
+        }
+      },
+      "SigninRequest": {
+        "required": ["email", "password"],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "123456"
+          }
+        }
+      },
+      "SigninResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Session's access token (needed for all requests)",
+            "example": "eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDlhMjJjMWMxOGZkNTM1Yzk3NDVjOCIsImlhdCI6MTYzMjI0ODg3Mn0.hnm3qyuHVl913NARFUEqVlKaSJRBfE6rcwOFZ5nOglM"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email",
+                "example": ""
+              },
+              "id": {
+                "type": "string",
+                "description": "User's id",
+                "example": "6149a22c1c18fd535c9745c8"
+              }
+            }
+          }
+        }
+      },
+      "SetBalanceRequest": {
+        "required": ["balance"],
+        "type": "object",
+        "properties": {
+          "balance": {
+            "type": "string",
+            "description": "User's balance"
+          }
+        }
+      },
+      "SetBalanceResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Session's access token (needed for all requests)",
+            "example": "eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDlhMjJjMWMxOGZkNTM1Yzk3NDVjOCIsImlhdCI6MTYzMjI0ODg3Mn0.hnm3qyuHVl913NARFUEqVlKaSJRBfE6rcwOFZ5nOglM"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "balance": {
+                "type": "string",
+                "description": "User's balance",
+                "format": "email",
+                "example": "5000"
+              }
+            }
+          }
+        }
+      },
+      "AddTransactionsRequest": {
+        "required": [
+          "date",
+          "description",
+          "amount",
+          "category",
+          "transactionType",
+          "userId"
+        ],
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "description": "Date"
+          },
+          "description": {
+            "type": "string",
+            "description": "User's password"
+          },
+          "amount": {
+            "type": "string",
+            "description": "User's email"
+          },
+          "category": {
+            "type": "string",
+            "description": "User's password"
+          },
+          "transactionType": {
+            "type": "string",
+            "description": "User's email"
+          },
+          "userId": {
+            "type": "string",
+            "description": "User's password"
+          }
+        }
+      },
+      "AddTransactionsResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Session's access token (needed for all requests)",
+            "example": "eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDlhMjJjMWMxOGZkNTM1Yzk3NDVjOCIsImlhdCI6MTYzMjI0ODg3Mn0.hnm3qyuHVl913NARFUEqVlKaSJRBfE6rcwOFZ5nOglM"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "string",
+                "description": "User's email",
+                "example": "27.09.2021"
+              },
+              "description": {
+                "type": "string",
+                "description": "User's password",
+                "example": "Кофе"
+              },
+              "amount": {
+                "type": "Number",
+                "description": "User's email",
+                "example": 100
+              },
+              "category": {
+                "type": "string",
+                "description": "User's password",
+                "example": "Продукты"
+              },
+              "transactionType": {
+                "type": "string",
+                "description": "User's email",
+                "example": "expense"
+              },
+              "userId": {
+                "type": "string",
+                "description": "User's password",
+                "example": "614b617e3b043d47dc0c7a88"
+              }
+            }
+          }
+        }
+      },
+      "BriefResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Session's access token (needed for all requests)",
+            "example": "eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDlhMjJjMWMxOGZkNTM1Yzk3NDVjOCIsImlhdCI6MTYzMjI0ODg3Mn0.hnm3qyuHVl913NARFUEqVlKaSJRBfE6rcwOFZ5nOglM"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "User's email",
+                "example": "614a30b6a45e9001b4bc7d6e"
+              },
+              "date": {
+                "type": "string",
+                "description": "User's email",
+                "example": "27.09.2021"
+              },
+              "description": {
+                "type": "string",
+                "description": "User's password",
+                "example": "Кофе"
+              },
+              "amount": {
+                "type": "Number",
+                "description": "User's email",
+                "example": 100
+              },
+              "category": {
+                "type": "string",
+                "description": "User's password",
+                "example": "Продукты"
+              },
+              "transactionType": {
+                "type": "string",
+                "description": "User's email",
+                "example": "expense"
+              },
+              "userId": {
+                "type": "string",
+                "description": "User's password",
+                "example": "614b617e3b043d47dc0c7a88"
+              }
+            }
+          }
+        }
+      },
+      "GetTransactionsByDayRquest": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Session's access token (needed for all requests)",
+            "example": "eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDlhMjJjMWMxOGZkNTM1Yzk3NDVjOCIsImlhdCI6MTYzMjI0ODg3Mn0.hnm3qyuHVl913NARFUEqVlKaSJRBfE6rcwOFZ5nOglM"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "User's email",
+                "example": "614a30b6a45e9001b4bc7d6e"
+              },
+              "date": {
+                "type": "string",
+                "description": "User's email",
+                "example": "27.09.2021"
+              },
+              "description": {
+                "type": "string",
+                "description": "User's password",
+                "example": "Кофе"
+              },
+              "amount": {
+                "type": "Number",
+                "description": "User's email",
+                "example": 100
+              },
+              "category": {
+                "type": "string",
+                "description": "User's password",
+                "example": "Продукты"
+              },
+              "transactionType": {
+                "type": "string",
+                "description": "User's email",
+                "example": "expense"
+              },
+              "userId": {
+                "type": "string",
+                "description": "User's password",
+                "example": "614b617e3b043d47dc0c7a88"
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
