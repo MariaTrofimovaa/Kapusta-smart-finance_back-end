@@ -4,7 +4,11 @@ const client = new OAuth2Client(
 );
 const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = process.env;
-const { GoogleUser } = require("../../models");
+const { User } = require("../../models");
+
+const { nanoid } = require("nanoid");
+
+const { users: service } = require("../../services");
 
 const googlelogin = (req, res) => {
   const { tokenId } = req.body;
@@ -16,35 +20,48 @@ const googlelogin = (req, res) => {
     })
     .then((response) => {
       const { email_verified, name, email } = response.payload;
-      console.log(response.payload);
+      // console.log(response.payload);
       if (email_verified) {
-        GoogleUser.findOne({ email }).exec((err, user) => {
+        // console.log("email", email);
+        User.findOne({ email }).exec((err, user) => {
+          const verifyToken = nanoid();
           if (err) {
             return res.status(400).json({ error: "Something went wrong...." });
           } else {
             if (user) {
-              const token = jwt.sign({ _id: user._id }, SECRET_KEY);
-              const { _id, email } = user;
+              const token = jwt.sign({ id: user.id }, SECRET_KEY);
+              // console.log("token", token);
+              const { id, email, verifyToken } = user;
+
+              service.update(user.id, { token });
+
               res.json({
-                user: { _id, token, email },
+                user: { id, token, email, verifyToken },
               });
             } else {
               let password = email + SECRET_KEY;
-              let newGoogleUser = new GoogleUser({
+
+              let newUser = new User({
                 name,
                 email,
                 password,
+                verifyToken,
               });
-              newGoogleUser.save((err, data) => {
+              newUser.save((err, data) => {
                 if (err) {
                   return res
                     .status(400)
                     .json({ error: "Something went wrong...." });
                 }
-                const token = jwt.sign({ _id: data._id }, SECRET_KEY);
-                const { _id, email } = newGoogleUser;
+
+                const token = jwt.sign({ id: data.id }, SECRET_KEY);
+
+                const { id, email } = newUser;
+
+                service.update(data.id, { token });
+
                 res.json({
-                  user: { _id, token, email },
+                  user: { id, token, email },
                 });
               });
             }
