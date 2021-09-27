@@ -20,9 +20,8 @@ const googlelogin = (req, res) => {
     })
     .then((response) => {
       const { email_verified, name, email } = response.payload;
-      // console.log(response.payload);
+
       if (email_verified) {
-        // console.log("email", email);
         User.findOne({ email }).exec((err, user) => {
           const verifyToken = nanoid();
           if (err) {
@@ -30,7 +29,7 @@ const googlelogin = (req, res) => {
           } else {
             if (user) {
               const token = jwt.sign({ id: user.id }, SECRET_KEY);
-              // console.log("token", token);
+
               const { id, email, verifyToken } = user;
 
               service.update(user.id, { token });
@@ -69,7 +68,6 @@ const googlelogin = (req, res) => {
         });
       }
     });
-  console.log();
 };
 
 module.exports = googlelogin;

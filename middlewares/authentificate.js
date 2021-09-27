@@ -10,7 +10,6 @@ const authentificate = async (req, res, next) => {
     const { authorization } = req.headers;
 
     const [bearer, token] = authorization.split(" ");
-    // console.log("token in authenticate", token);
 
     if (bearer !== "Bearer") {
       return res.status(401).json({
@@ -20,9 +19,9 @@ const authentificate = async (req, res, next) => {
       });
     }
     const { id } = jwt.verify(token, SECRET_KEY);
-    // console.log("id", id);
+
     const user = await service.getById(id);
-    // console.log("user", user);
+
     if (!user || !user.token) {
       return res.status(401).json({
         status: "error",
