@@ -17,9 +17,6 @@ const update = async (id, updateUser) => {
   // console.log("result", result);
   return result;
 };
-// const update = (id, updateUser) => {
-//   return User.findByIdAndUpdate(id, updateUser, { new: true });
-// };
 
 module.exports = {
   getOne,

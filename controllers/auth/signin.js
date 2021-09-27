@@ -1,5 +1,6 @@
 const { users: service } = require("../../services");
 const jwt = require("jsonwebtoken");
+
 const { SECRET_KEY } = process.env;
 
 const signin = async (req, res, next) => {
