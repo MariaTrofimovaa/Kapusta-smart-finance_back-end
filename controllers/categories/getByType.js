@@ -4,7 +4,7 @@ const getByType = async (req, res, next) => {
   const { type } = req.params;
   const result = await service.getByType(type);
   res.json({
-    status: "sucess",
+    status: "Success",
     code: 200,
     data: {
       result,

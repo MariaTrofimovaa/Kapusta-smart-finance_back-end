@@ -7,7 +7,7 @@ const verifyEmail = async (req, res, next) => {
     return res.status(404).json({
       status: "error",
       code: 404,
-      message: "user Not found by token during email verification",
+      message: "User not found by token during email verification",
     });
   }
   await service.update(user._id, { verify: true, verifyToken: null });

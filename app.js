@@ -4,7 +4,34 @@ const logger = require("morgan");
 const cors = require("cors"); // кросдоменные запросы
 const api = require("./routes/api");
 
-// const path = require("path"); //чтобы прописать пути к папкам
+const swaggerUI = require("swagger-ui-express");
+const swaggerDocument = require("./config/swagger.json");
+// const low = require("lowdb");
+// const swaggerJsDoc = require("swagger-jsdoc");
+
+// const FileSync = require("lowdb/adapters/FileSync");
+// const adapter = new FileSync("swagger.json");
+// const db = low(adapter);
+
+// const options = {
+//   definition: {
+//     openapi: "3.0.0",
+//     info: {
+//       title: "Library API",
+//       version: "1.0.0",
+//       description: "A simple Express Library API",
+//     },
+//     servers: [
+//       {
+//         url: "http://localhost:4000/api-docs",
+//       },
+//     ],
+//   },
+//   apis: ["./routes/*.js"],
+// };
+
+// const specs = swaggerJsDoc(options);
+// app.db = db;
 
 require("dotenv").config(); // чтобы содержимое файла env добавилось в переменную окружения
 
@@ -30,6 +57,9 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 app.use(logger(formatsLogger));
 app.use(cors()); // используем мидлвару, чтобы появились кроссдоменные запросы
 app.use(express.json()); // чтобы put и patch запросы считывались
+
+// app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.use("/api/v1/auth", api.auth);
 app.use("/api/v1/transactions", api.transactions); //обработчик маршрута transactions
