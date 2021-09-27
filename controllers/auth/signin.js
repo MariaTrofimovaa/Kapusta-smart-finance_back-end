@@ -1,6 +1,6 @@
 const { users: service } = require("../../services");
 const jwt = require("jsonwebtoken");
-// 1. берем секретный ключ для генерации токена из переменной окружения
+
 const { SECRET_KEY } = process.env;
 
 const signin = async (req, res, next) => {
