@@ -149,7 +149,14 @@
         "parameters": [],
         "responses": {
           "201": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserRequest"
+                }
+              }
+            }
           },
           "400": {
             "description": "Invalid request body / Token not provided",
@@ -371,7 +378,16 @@
         "tags": ["Transactions"],
         "summary": "Delete transaction",
         "security": [{ "Bearer": [] }],
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id - Transaction's id",
+            "description": "Transaction's id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "required": true,
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -459,6 +475,32 @@
                 "type": "string",
                 "description": "User's id",
                 "example": "6149a22c1c18fd535c9745c8"
+              }
+            }
+          }
+        }
+      },
+      "CurrentUserRequest": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Session's access token (needed for all requests)",
+            "example": "eeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNDlhMjJjMWMxOGZkNTM1Yzk3NDVjOCIsImlhdCI6MTYzMjI0ODg3Mn0.hnm3qyuHVl913NARFUEqVlKaSJRBfE6rcwOFZ5nOglM"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email",
+                "example": "user@email.com"
+              },
+              "balance": {
+                "type": "Number",
+                "description": "User's id",
+                "example": 5000
               }
             }
           }
