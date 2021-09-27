@@ -12,9 +12,14 @@ const add = ({ password, ...rest }) => {
   return newUser.save();
 };
 
-const update = (id, updateUser) => {
-  return User.findByIdAndUpdate(id, updateUser, { new: true });
+const update = async (id, updateUser) => {
+  const result = await User.findByIdAndUpdate(id, updateUser, { new: true });
+  console.log("result", result);
+  return result;
 };
+// const update = (id, updateUser) => {
+//   return User.findByIdAndUpdate(id, updateUser, { new: true });
+// };
 
 module.exports = {
   getOne,
