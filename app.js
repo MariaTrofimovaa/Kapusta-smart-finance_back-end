@@ -8,7 +8,6 @@ const swaggerUI = require("swagger-ui-express");
 const swaggerDocument = require("./config/swagger.json");
 
 require("dotenv").config();
-
 const app = express();
 
 const { DB_HOST, PORT = 4000 } = process.env;
