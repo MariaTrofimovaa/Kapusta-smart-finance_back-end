@@ -13,7 +13,7 @@
   "produces": ["application/json"],
   "servers": [
     {
-      "url": "http://localhost:4000/api-docs",
+      "url": "https://kapusta-smart-finance.herokuapp.com/api-docs",
       "description": "The production API server"
     }
   ],
