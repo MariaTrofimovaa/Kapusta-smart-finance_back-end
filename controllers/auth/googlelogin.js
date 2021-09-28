@@ -1,6 +1,6 @@
 const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(
-  "98081212290-o5ci4422o4omppgvkqc2q6e9jd13ioso.apps.googleusercontent.com"
+  "516350701159-h40lcnb8kgtv81mnomi4ugrhobi0a9gb.apps.googleusercontent.com"
 );
 const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = process.env;
@@ -16,7 +16,7 @@ const googlelogin = (req, res) => {
     .verifyIdToken({
       idToken: tokenId,
       audience:
-        "98081212290-o5ci4422o4omppgvkqc2q6e9jd13ioso.apps.googleusercontent.com",
+        "516350701159-h40lcnb8kgtv81mnomi4ugrhobi0a9gb.apps.googleusercontent.com",
     })
     .then((response) => {
       const { email_verified, name, email } = response.payload;
